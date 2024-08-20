@@ -1,8 +1,8 @@
-if vim.g.loaded_kitty_navigator then
+if vim.g.loaded_kitty_navigator_1 then
   return
 end
 
-vim.g.loaded_kitty_navigator = 1
+vim.g.loaded_kitty_navigator_1 = 1
 
 vim.keymap.set("n", "<C-h>", "<Cmd>KittyNavigateLeft<CR>", { desc = "Kitty Left" })
 vim.keymap.set("n", "<C-j>", "<Cmd>KittyNavigateDown<CR>", { desc = "Kitty Down" })
