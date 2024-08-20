@@ -150,6 +150,8 @@
 
   extraPackages = with final; [
     lua-language-server
+    nodePackages.intelephense
+    typescript-language-server
     nil
     stylua
 
