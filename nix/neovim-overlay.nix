@@ -3,6 +3,7 @@
     appName ? null,
     plugins ? [],
     devPlugins ? [],
+    extraPackages ? [],
     resolvedExtraLuaPackages ? [],
   }: let
     defaultPlugin = {
@@ -31,7 +32,7 @@
     };
 
     nvimRtp = final.stdenv.mkDerivation {
-      name = "nvim-config";
+      name = "nvim-rtp";
       src = ../nvim;
 
       buildPhase = ''
@@ -76,13 +77,15 @@
         devPlugins
       )
       + ''
-        vim.opt.rtp:append('${nvimRtp}/nvim')
-        vim.opt.rtp:append('${nvimRtp}/after')
+        vim.opt.rtp:prepend('${nvimRtp}/nvim')
+        vim.opt.rtp:prepend('${nvimRtp}/after')
       '';
 
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
       (optional (appName != "nvim" && appName != null && appName != "")
         ''--set NVIM_APPNAME "${appName}"'')
+      ++ (optional (extraPackages != [])
+        ''--prefix PATH : "${makeBinPath extraPackages}"'')
     );
 
     extraMakeWrapperLuaCArgs = optionalString (resolvedExtraLuaPackages != []) ''
@@ -145,7 +148,14 @@
     session-nvim
   ]);
 
+  extraPackages = with final; [
+    lua-language-server
+    nil
+    stylua
+  ];
+
   nvim-dev = mkNeovim {
+    inherit extraPackages;
     plugins = base-plugins;
     devPlugins = [
       {
@@ -160,6 +170,7 @@
   };
 
   nvim-pkg = mkNeovim {
+    inherit extraPackages;
     plugins = all-plugins;
   };
 
