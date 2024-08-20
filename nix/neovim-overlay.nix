@@ -152,6 +152,9 @@
     lua-language-server
     nil
     stylua
+
+    tree-sitter
+    gcc
   ];
 
   nvim-dev = mkNeovim {
