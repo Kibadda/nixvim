@@ -74,10 +74,10 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 require("nvim-treesitter").setup {
-  -- ensure_install = vim
-  --   .iter(parsers)
-  --   :filter(function(parser)
-  --     return type(parser) == "string"
-  --   end)
-  --   :totable(),
+  ensure_install = vim
+    .iter(parsers)
+    :filter(function(parser)
+      return type(parser) == "string"
+    end)
+    :totable(),
 }
