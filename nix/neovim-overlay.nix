@@ -132,6 +132,7 @@
 
   nvim-dev = mkNeovim {
     plugins = base-plugins;
+    appName = "nvim-dev";
     devPlugins = [
       {
         name = "git.nvim";
@@ -146,7 +147,6 @@
 
   nvim-pkg = mkNeovim {
     plugins = all-plugins;
-    appName = "nvim-dev";
   };
 
   luarc-json = final.mk-luarc-json {
