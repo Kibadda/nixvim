@@ -1,8 +1,8 @@
-if vim.g.loaded_treesitter then
+if vim.g.loaded_plugin_treesitter then
   return
 end
 
-vim.g.loaded_treesitter = 1
+vim.g.loaded_plugin_treesitter = 1
 
 ---@class me.treesitter.ParserInfo : ParserInfo
 ---@field name string

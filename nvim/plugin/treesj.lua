@@ -1,8 +1,8 @@
-if vim.g.loaded_treesj then
+if vim.g.loaded_plugin_treesj then
   return
 end
 
-vim.g.loaded_treesj = 1
+vim.g.loaded_plugin_treesj = 1
 
 vim.keymap.set("n", "gJ", "<Cmd>TSJToggle<CR>", { desc = "Join/Split Lines" })
 

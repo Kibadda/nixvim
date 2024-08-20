@@ -1,8 +1,8 @@
-if vim.g.loaded_conform then
+if vim.g.loaded_plugin_conform then
   return
 end
 
-vim.g.loaded_conform = 1
+vim.g.loaded_plugin_conform = 1
 
 local conform = require "conform"
 

@@ -1,8 +1,8 @@
-if vim.g.loaded_usercmds then
+if vim.g.loaded_plugin_usercmds then
   return
 end
 
-vim.g.loaded_usercmds = 1
+vim.g.loaded_plugin_usercmds = 1
 
 vim.api.nvim_create_user_command("D", function(args)
   vim.cmd.bprevious()

@@ -1,8 +1,8 @@
-if vim.g.loaded_terminal then
+if vim.g.loaded_plugin_terminal then
   return
 end
 
-vim.g.loaded_terminal = 1
+vim.g.loaded_plugin_terminal = 1
 
 local autocmd = vim.api.nvim_create_autocmd
 local group = vim.api.nvim_create_augroup("Terminal", { clear = true })

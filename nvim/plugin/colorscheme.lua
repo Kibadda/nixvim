@@ -1,7 +1,7 @@
-if vim.g.loaded_colorscheme then
+if vim.g.loaded_plugin_colorscheme then
   return
 end
 
-vim.g.loaded_colorscheme = 1
+vim.g.loaded_plugin_colorscheme = 1
 
 vim.cmd.colorscheme "gruvbox"

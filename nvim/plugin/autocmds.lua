@@ -1,8 +1,8 @@
-if vim.g.loaded_autocmds then
+if vim.g.loaded_plugin_autocmds then
   return
 end
 
-vim.g.loaded_autocmds = 1
+vim.g.loaded_plugin_autocmds = 1
 
 local autocmd = vim.api.nvim_create_autocmd
 local group = vim.api.nvim_create_augroup("Autocmds", { clear = true })

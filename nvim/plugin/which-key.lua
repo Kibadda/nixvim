@@ -1,8 +1,8 @@
-if vim.g.loaded_which_key then
+if vim.g.loaded_plugin_which_key then
   return
 end
 
-vim.g.loaded_which_key = 1
+vim.g.loaded_plugin_which_key = 1
 
 require("which-key").setup {
   preset = "classic",

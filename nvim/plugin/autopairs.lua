@@ -1,8 +1,8 @@
-if vim.g.loaded_autopairs then
+if vim.g.loaded_plugin_autopairs then
   return
 end
 
-vim.g.loaded_autopairs = 1
+vim.g.loaded_plugin_autopairs = 1
 
 local autopairs = require "nvim-autopairs"
 local Rule = require "nvim-autopairs.rule"

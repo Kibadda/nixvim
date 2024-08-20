@@ -1,8 +1,8 @@
-if vim.g.loaded_options then
+if vim.g.loaded_plugin_options then
   return
 end
 
-vim.g.loaded_options = 1
+vim.g.loaded_plugin_options = 1
 
 local o = vim.o
 o.autowrite = true

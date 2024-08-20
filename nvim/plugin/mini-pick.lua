@@ -1,8 +1,8 @@
-if vim.g.loaded_mini_pick then
+if vim.g.loaded_plugin_mini_pick then
   return
 end
 
-vim.g.loaded_mini_pick = 1
+vim.g.loaded_plugin_mini_pick = 1
 
 local pick = require "mini.pick"
 

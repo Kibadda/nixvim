@@ -1,8 +1,8 @@
-if vim.g.loaded_filetypes then
+if vim.g.loaded_plugin_filetypes then
   return
 end
 
-vim.g.loaded_filetypes = 1
+vim.g.loaded_plugin_filetypes = 1
 
 vim.filetype.add {
   pattern = {

@@ -1,8 +1,8 @@
-if vim.g.loaded_cmp then
+if vim.g.loaded_plugin_cmp then
   return
 end
 
-vim.g.loaded_cmp = 1
+vim.g.loaded_plugin_cmp = 1
 
 local cmp = require "cmp"
 local lspkind = require "lspkind"
@@ -21,7 +21,7 @@ local window_options = {
   col_offset = -3,
 }
 
-return {
+cmp.setup {
   ---@diagnostic disable-next-line: missing-fields
   formatting = {
     fields = { "kind", "abbr", "menu" },

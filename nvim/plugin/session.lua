@@ -1,8 +1,8 @@
-if vim.g.loaded_session_1 then
+if vim.g.loaded_plugin_session then
   return
 end
 
-vim.g.loaded_session_1 = 1
+vim.g.loaded_plugin_session = 1
 
 vim.keymap.set("n", "<Leader>Sn", "<Plug>(SessionNew)", { desc = "New" })
 vim.keymap.set("n", "<Leader>Sd", "<Plug>(SessionDelete)", { desc = "Delete" })

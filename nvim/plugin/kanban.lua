@@ -1,8 +1,8 @@
-if vim.g.loaded_kanban then
+if vim.g.loaded_plugin_kanban then
   return
 end
 
-vim.g.loaded_kanban = 1
+vim.g.loaded_plugin_kanban = 1
 
 vim.keymap.set("n", "<Leader>k", function()
   require("me.kanban").toggle()

@@ -1,8 +1,8 @@
-if vim.g.loaded_formatter then
+if vim.g.loaded_plugin_formatter then
   return
 end
 
-vim.g.loaded_formatter = 1
+vim.g.loaded_plugin_formatter = 1
 
 vim.g.AutoFormat = vim.g.AutoFormat or 0
 

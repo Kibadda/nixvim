@@ -1,8 +1,8 @@
-if vim.g.loaded_mini_hipatterns then
+if vim.g.loaded_plugin_mini_hipatterns then
   return
 end
 
-vim.g.loaded_mini_hipatterns = 1
+vim.g.loaded_plugin_mini_hipatterns = 1
 
 local hipatterns = require "mini.hipatterns"
 

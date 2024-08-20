@@ -42,8 +42,8 @@ local function git()
       { details = true }
     )
 
-    if #extmarks > 0 and extmarks[1][4].number_hl_group then
-      hl = extmarks[1][4].number_hl_group
+    if #extmarks > 0 then
+      hl = extmarks[1][4].sign_hl_group
     end
   end
 

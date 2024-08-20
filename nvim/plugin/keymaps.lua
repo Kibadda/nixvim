@@ -1,8 +1,8 @@
-if vim.g.loaded_keymaps then
+if vim.g.loaded_plugin_keymaps then
   return
 end
 
-vim.g.loaded_keymaps = 1
+vim.g.loaded_plugin_keymaps = 1
 
 local function map(mode, lhs, rhs, opts)
   if type(opts) == "string" then

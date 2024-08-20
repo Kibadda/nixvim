@@ -1,8 +1,8 @@
-if vim.g.loaded_lsp then
+if vim.g.loaded_plugin_lsp then
   return
 end
 
-vim.g.loaded_lsp = 1
+vim.g.loaded_plugin_lsp = 1
 
 vim.lsp.set_log_level(vim.lsp.log_levels.WARN)
 

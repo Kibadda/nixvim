@@ -1,8 +1,8 @@
-if vim.fn.argc() > 0 or vim.g.loaded_mini_starter then
+if vim.fn.argc() > 0 or vim.g.loaded_plugin_mini_starter then
   return
 end
 
-vim.g.loaded_mini_starter = 1
+vim.g.loaded_plugin_mini_starter = 1
 
 local starter = require "mini.starter"
 
