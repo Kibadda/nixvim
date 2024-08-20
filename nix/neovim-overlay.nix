@@ -1,11 +1,5 @@
 { inputs }: final: prev: with final.lib; let
-  mkNeovim = {
-    appName ? null,
-    plugins ? [],
-    devPlugins ? [],
-    extraPackages ? [],
-    resolvedExtraLuaPackages ? [],
-  }: let
+  mkNeovim = { appName ? null, plugins ? [], devPlugins ? [] }: let
     defaultPlugin = {
       plugin = null;
       config = null;
@@ -13,23 +7,30 @@
       runtime = {};
     };
 
-    normalizedPlugins = map (x:
-      defaultPlugin
-      // (
-        if x ? plugin
-        then x
-        else { plugin = x; }
-      ))
-    plugins;
+    normalizedPlugins = map (x: defaultPlugin // (
+      if x ? plugin
+      then x
+      else { plugin = x; }
+    )) plugins;
 
     neovimConfig = final.neovimUtils.makeNeovimConfig {
       withPython3 = false;
       withRuby = false;
       withNodeJs = false;
-      viAlias = true;
-      vimAlias = true;
+      viAlias = appName == null || appName == "nvim";
+      vimAlias = appName == null || appName == "nvim";
       plugins = normalizedPlugins;
     };
+
+    extraPackages = with final; [
+      lua-language-server
+      # nodePackages.intelephense
+      typescript-language-server
+      nil
+      stylua
+      tree-sitter
+      gcc
+    ];
 
     nvimRtp = final.stdenv.mkDerivation {
       name = "nvim-rtp";
@@ -87,33 +88,14 @@
       ++ (optional (extraPackages != [])
         ''--prefix PATH : "${makeBinPath extraPackages}"'')
     );
-
-    extraMakeWrapperLuaCArgs = optionalString (resolvedExtraLuaPackages != []) ''
-      --suffix LUA_CPATH ";" "${
-        lib.concatMapStringsSep ";" final.luaPackages.getLuaCPath
-        resolvedExtraLuaPackages
-      }"'';
-
-    extraMakeWrapperLuaArgs =
-      optionalString (resolvedExtraLuaPackages != [])
-      ''
-        --suffix LUA_PATH ";" "${
-          concatMapStringsSep ";" final.luaPackages.getLuaPath
-          resolvedExtraLuaPackages
-        }"'';
   in
-    # final.wrapNeovimUnstable inputs.packages.${prev.system}.neovim (neovimConfig
     final.wrapNeovimUnstable final.neovim-nightly (neovimConfig
       // {
         luaRcContent = initLua;
         wrapperArgs =
           escapeShellArgs neovimConfig.wrapperArgs
           + " "
-          + extraMakeWrapperArgs
-          + " "
-          + extraMakeWrapperLuaCArgs
-          + " "
-          + extraMakeWrapperLuaArgs;
+          + extraMakeWrapperArgs;
         wrapRc = true;
       });
 
@@ -148,19 +130,7 @@
     session-nvim
   ]);
 
-  extraPackages = with final; [
-    lua-language-server
-    nodePackages.intelephense
-    typescript-language-server
-    nil
-    stylua
-
-    tree-sitter
-    gcc
-  ];
-
   nvim-dev = mkNeovim {
-    inherit extraPackages;
     plugins = base-plugins;
     devPlugins = [
       {
@@ -175,8 +145,8 @@
   };
 
   nvim-pkg = mkNeovim {
-    inherit extraPackages;
     plugins = all-plugins;
+    appName = "nvim-dev";
   };
 
   luarc-json = final.mk-luarc-json {
