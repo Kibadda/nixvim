@@ -143,7 +143,7 @@
           nil
         ];
         shellHook = ''
-          ln -fs ${pkgs.luarc-json} .luarc.json
+          ln -fs ${pkgs.luarc-json} nvim/.luarc.json
         '';
       };
     in {
