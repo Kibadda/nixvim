@@ -22,10 +22,6 @@ local function start(server, buf)
     if not server.clients[id] then
       server.clients[id] = vim.lsp.get_client_by_id(id)
     end
-
-    -- if root then
-    --   vim.fn.chdir(server.clients[id].config.root_dir)
-    -- end
   end
 end
 

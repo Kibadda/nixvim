@@ -110,14 +110,6 @@ local servers = {
       cmd = { "nil" },
     },
   },
-
-  {
-    filetypes = { "typst" },
-    root_markers = { "main.typ", ".git" },
-    config = {
-      cmd = { "tinymist" },
-    },
-  },
 }
 
 return servers
