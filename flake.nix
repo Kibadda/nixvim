@@ -135,6 +135,9 @@
           plugin-overlay
           neovim-overlay
         ];
+        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
+          "intelephense"
+        ];
       };
       shell = pkgs.mkShell {
         name = "nvim-devShell";
