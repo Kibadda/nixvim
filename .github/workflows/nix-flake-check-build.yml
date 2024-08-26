@@ -12,13 +12,11 @@ jobs:
       - uses: cachix/install-nix-action@v27
       - run: nix flake check -L
   build:
-    name: Build - ${{ matrix.attribute }} / ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Build - ${{ matrix.attribute }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - ubuntu-latest
         attribute:
           - .#devShells.x86_64-linux.default
           - .#nvim
