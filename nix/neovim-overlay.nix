@@ -78,8 +78,8 @@
         devPlugins
       )
       + ''
-        vim.opt.rtp:prepend('${nvimRtp}/nvim')
-        vim.opt.rtp:prepend('${nvimRtp}/after')
+        vim.opt.rtp:append('${nvimRtp}/nvim')
+        vim.opt.rtp:append('${nvimRtp}/after')
       '';
 
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
