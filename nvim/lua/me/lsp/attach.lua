@@ -1,11 +1,13 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local clear = vim.api.nvim_clear_autocmds
+local symbols = require "me.data.symbols"
 
 local groups = {
   highlight = augroup("LspAttachHighlight", { clear = false }),
   codelens = augroup("LspAttachCodelens", { clear = false }),
   inlay = augroup("LspAttachInlay", { clear = false }),
+  completion = augroup("LspAttachCompletion", { clear = false }),
 }
 
 autocmd("LspAttach", {
@@ -34,7 +36,7 @@ autocmd("LspAttach", {
 
     local methods = vim.lsp.protocol.Methods
 
-    ---@type table<string, { method?: string, lhs?: string, rhs?: function, mode?: string, desc?: string, extra?: function }>
+    ---@type table<string, { method?: string, lhs?: string, rhs?: function, mode?: string, desc?: string, extra?: function, expr?: boolean }>
     local maps = {
       {
         method = methods.textDocument_definition,
@@ -136,6 +138,67 @@ autocmd("LspAttach", {
           end
         end,
       },
+      {
+        method = methods.textDocument_completion,
+        extra = function()
+          vim.lsp.completion.enable(true, client.id, bufnr, {
+            autotrigger = true,
+            convert = function(item)
+              return {
+                kind_hlgroup = "Yellow",
+                abbr = item.label:gsub("%b()", ""),
+                kind = symbols[vim.lsp.protocol.CompletionItemKind[item.kind]],
+                info = "",
+              }
+            end,
+          })
+
+          clear { group = groups.completion, buffer = bufnr }
+          autocmd("CompleteDone", {
+            group = groups.completion,
+            buffer = bufnr,
+            callback = function()
+              vim.cmd.pclose { bang = true }
+            end,
+          })
+        end,
+      },
+      -- {
+      --   method = methods.textDocument_completion,
+      --   mode = "i",
+      --   lhs = "<CR>",
+      --   rhs = function()
+      --     -- TODO: check if something is selected
+      --     return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
+      --   end,
+      --   expr = true,
+      -- },
+      {
+        method = methods.textDocument_completion,
+        mode = "i",
+        lhs = "<C-Space>",
+        rhs = function()
+          vim.lsp.completion.trigger()
+        end,
+      },
+      {
+        method = methods.textDocument_completion,
+        mode = "i",
+        lhs = "<Tab>",
+        rhs = function()
+          return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+        end,
+        expr = true,
+      },
+      {
+        method = methods.textDocument_completion,
+        mode = "i",
+        lhs = "<S-Tab>",
+        rhs = function()
+          return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+        end,
+        expr = true,
+      },
     }
 
     for _, mapping in ipairs(maps) do
@@ -144,6 +207,7 @@ autocmd("LspAttach", {
           vim.keymap.set(mapping.mode or "n", mapping.lhs, mapping.rhs, {
             buffer = bufnr,
             desc = mapping.desc,
+            expr = mapping.expr,
           })
         end
 

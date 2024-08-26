@@ -106,11 +106,6 @@
     vim-pasta
     nvim-surround
     nvim-autopairs
-    nvim-cmp
-    cmp-nvim-lsp
-    cmp-path
-    cmp-buffer
-    lspkind-nvim
     conform-nvim
     vim-kitty-navigator
     mini-ai

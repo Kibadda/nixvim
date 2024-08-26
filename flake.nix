@@ -33,26 +33,6 @@
       url = "github:windwp/nvim-autopairs";
       flake = false;
     };
-    nvim-cmp = {
-      url = "github:hrsh7th/nvim-cmp";
-      flake = false;
-    };
-    cmp-nvim-lsp = {
-      url = "github:hrsh7th/cmp-nvim-lsp";
-      flake = false;
-    };
-    cmp-path = {
-      url = "github:hrsh7th/cmp-path";
-      flake = false;
-    };
-    cmp-buffer = {
-      url = "github:hrsh7th/cmp-buffer";
-      flake = false;
-    };
-    lspkind-nvim = {
-      url = "github:onsails/lspkind-nvim";
-      flake = false;
-    };
     conform-nvim = {
       url = "github:stevearc/conform.nvim";
       flake = false;

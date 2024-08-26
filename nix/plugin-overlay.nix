@@ -12,11 +12,6 @@ in {
     vim-pasta = mkNvimPlugin inputs.vim-pasta "vim-pasta";
     nvim-surround = mkNvimPlugin inputs.nvim-surround "nvim-surround";
     nvim-autopairs = mkNvimPlugin inputs.nvim-autopairs "nvim-autopairs";
-    nvim-cmp = mkNvimPlugin inputs.nvim-cmp "nvim-cmp";
-    cmp-nvim-lsp = mkNvimPlugin inputs.cmp-nvim-lsp "cmp-nvim-lsp";
-    cmp-path = mkNvimPlugin inputs.cmp-path "cmp-path";
-    cmp-buffer = mkNvimPlugin inputs.cmp-buffer "cmp-buffer";
-    lspkind-nvim = mkNvimPlugin inputs.lspkind-nvim "lspkind.nvim";
     conform-nvim = mkNvimPlugin inputs.conform-nvim "conform.nvim";
     git-nvim = mkNvimPlugin inputs.git-nvim "git.nvim";
     vim-kitty-navigator = mkNvimPlugin inputs.vim-kitty-navigator "vim-kitty-navigator";
