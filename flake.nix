@@ -65,7 +65,6 @@
       url = "github:chrisgrieser/nvim-recorder";
       flake = false;
     };
-    # rustaceanvim
     session-nvim = {
       url = "github:Kibadda/session.nvim";
       flake = false;

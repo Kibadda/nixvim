@@ -20,7 +20,6 @@ in {
     mini-pick = mkNvimPlugin inputs.mini-pick "mini.pick";
     mini-starter = mkNvimPlugin inputs.mini-starter "mini.starter";
     nvim-recorder = mkNvimPlugin inputs.nvim-recorder "nvim-recorder";
-    # rustaceanvim
     session-nvim = mkNvimPlugin inputs.session-nvim "session.nvim";
     nvim-treesitter = mkNvimPlugin inputs.nvim-treesitter "nvim-treesitter";
     treesj = mkNvimPlugin inputs.treesj "treesj";

@@ -113,7 +113,6 @@
     mini-pick
     mini-starter
     nvim-recorder
-    # rustaceanvim
     nvim-treesitter
     treesj
   ];
