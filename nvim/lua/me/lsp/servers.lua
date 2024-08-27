@@ -12,20 +12,6 @@ local servers = {
 
         config.settings.Lua.workspace.library = config.settings.Lua.workspace.library or {}
 
-        ---@diagnostic disable-next-line:param-type-mismatch
-        if params.rootPath:find(string.gsub(vim.fn.stdpath "config", "%-", "%%-")) then
-          config.settings.Lua.runtime.version = "LuaJIT"
-
-          table.insert(config.settings.Lua.workspace.library, vim.env.VIMRUNTIME .. "/lua")
-
-          for _, plugin in ipairs(require("lazy").plugins()) do
-            ---@diagnostic disable-next-line:param-type-mismatch
-            for _, p in ipairs(vim.fn.expand(plugin.dir .. "/lua", false, true)) do
-              table.insert(config.settings.Lua.workspace.library, p)
-            end
-          end
-        end
-
         if params.rootPath:find ".nvim" then
           table.insert(config.settings.Lua.workspace.library, vim.env.VIMRUNTIME .. "/lua")
         end
