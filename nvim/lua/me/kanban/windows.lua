@@ -19,9 +19,9 @@ local ns = vim.api.nvim_create_namespace "Kanban"
 local api = require "me.kanban.api"
 
 local highlights = {
-  Border = { name = "KanbanBorder", hl = { fg = vim.g.colors.white } },
-  BorderWeek = { name = "KanbanBorderWeek", hl = { fg = vim.g.colors.cyan } },
-  BorderCurrent = { name = "KanbanBorderCurrent", hl = { fg = vim.g.colors.red } },
+  Border = { name = "KanbanBorder", hl = { fg = vim.g.colors.white, bg = vim.g.colors.black } },
+  BorderWeek = { name = "KanbanBorderWeek", hl = { fg = vim.g.colors.cyan, bg = vim.g.colors.black } },
+  BorderCurrent = { name = "KanbanBorderCurrent", hl = { fg = vim.g.colors.red, bg = vim.g.colors.black } },
   Title = { name = "KanbanTitle", hl = { fg = vim.g.colors.red } },
   Time = { name = "KanbanTime", hl = { fg = vim.g.colors.blue } },
 }

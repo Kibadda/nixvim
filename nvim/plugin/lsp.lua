@@ -6,16 +6,6 @@ vim.g.loaded_plugin_lsp = 1
 
 vim.lsp.set_log_level(vim.lsp.log_levels.WARN)
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "single",
-  title = " Documentation ",
-})
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers["textDocument/signatureHelp"], {
-  border = "single",
-  title = " Signature ",
-})
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
   vim.lsp.with(vim.lsp.handlers["textDocument/publishDiagnostics"], {
     signs = {
@@ -29,9 +19,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 
 vim.diagnostic.config {
   severity_sort = true,
-  float = {
-    border = "single",
-  },
   jump = {
     float = true,
   },
