@@ -25,6 +25,5 @@ in {
     session-nvim = mkNvimPlugin inputs.session-nvim "session.nvim";
     nvim-treesitter = mkNvimPlugin inputs.nvim-treesitter "nvim-treesitter";
     treesj = mkNvimPlugin inputs.treesj "treesj";
-    which-key-nvim = mkNvimPlugin inputs.which-key-nvim "which-key.nvim";
   };
 }

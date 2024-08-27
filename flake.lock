@@ -643,8 +643,7 @@
         "session-nvim": "session-nvim",
         "treesj": "treesj",
         "vim-kitty-navigator": "vim-kitty-navigator",
-        "vim-pasta": "vim-pasta",
-        "which-key-nvim": "which-key-nvim"
+        "vim-pasta": "vim-pasta"
       }
     },
     "session-nvim": {
@@ -723,22 +722,6 @@
       "original": {
         "owner": "ku1ik",
         "repo": "vim-pasta",
-        "type": "github"
-      }
-    },
-    "which-key-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1721858377,
-        "narHash": "sha256-nv9s4/ax2BoL9IQdk42uN7mxIVFYiTK+1FVvWDKRnGM=",
-        "owner": "folke",
-        "repo": "which-key.nvim",
-        "rev": "6c1584eb76b55629702716995cca4ae2798a9cca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "which-key.nvim",
         "type": "github"
       }
     }

@@ -117,7 +117,6 @@
     # rustaceanvim
     nvim-treesitter
     treesj
-    which-key-nvim
   ];
 
   all-plugins = base-plugins ++ (with final.nvimPlugins; [
