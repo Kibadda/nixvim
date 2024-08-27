@@ -642,7 +642,6 @@
         "plenary": "plenary",
         "session-nvim": "session-nvim",
         "treesj": "treesj",
-        "vim-kitty-navigator": "vim-kitty-navigator",
         "vim-pasta": "vim-pasta"
       }
     },
@@ -690,22 +689,6 @@
       "original": {
         "owner": "Wansmer",
         "repo": "treesj",
-        "type": "github"
-      }
-    },
-    "vim-kitty-navigator": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1702257802,
-        "narHash": "sha256-gs/ZieMBPv66BbNyrYolTxZN6ZOZUBQoEOSsFSo9YxE=",
-        "owner": "knubie",
-        "repo": "vim-kitty-navigator",
-        "rev": "20abf8613aa228a5def1ae02cd9da0f2d210352a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "knubie",
-        "repo": "vim-kitty-navigator",
         "type": "github"
       }
     },

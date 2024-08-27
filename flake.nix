@@ -41,10 +41,6 @@
       url = "github:Kibadda/git.nvim";
       flake = false;
     };
-    vim-kitty-navigator = {
-      url = "github:knubie/vim-kitty-navigator";
-      flake = false;
-    };
     mini-ai = {
       url = "github:echasnovski/mini.ai";
       flake = false;

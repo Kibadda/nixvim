@@ -14,7 +14,6 @@ in {
     nvim-autopairs = mkNvimPlugin inputs.nvim-autopairs "nvim-autopairs";
     conform-nvim = mkNvimPlugin inputs.conform-nvim "conform.nvim";
     git-nvim = mkNvimPlugin inputs.git-nvim "git.nvim";
-    vim-kitty-navigator = mkNvimPlugin inputs.vim-kitty-navigator "vim-kitty-navigator";
     mini-ai = mkNvimPlugin inputs.mini-ai "mini.ai";
     mini-diff = mkNvimPlugin inputs.mini-diff "mini.diff";
     mini-hipatterns = mkNvimPlugin inputs.mini-hipatterns "mini.hipatterns";

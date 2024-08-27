@@ -107,7 +107,6 @@
     nvim-surround
     nvim-autopairs
     conform-nvim
-    vim-kitty-navigator
     mini-ai
     mini-diff
     mini-hipatterns
