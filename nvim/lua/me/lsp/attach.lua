@@ -3,6 +3,14 @@ local autocmd = vim.api.nvim_create_autocmd
 local clear = vim.api.nvim_clear_autocmds
 local symbols = require "me.data.symbols"
 
+local should_confirm = false
+local trigger = vim.lsp.completion.trigger
+---@diagnostic disable-next-line:duplicate-set-field
+function vim.lsp.completion.trigger()
+  should_confirm = false
+  trigger()
+end
+
 local groups = {
   highlight = augroup("LspAttachHighlight", { clear = false }),
   codelens = augroup("LspAttachCodelens", { clear = false }),
@@ -35,7 +43,7 @@ autocmd("LspAttach", {
 
     local methods = vim.lsp.protocol.Methods
 
-    ---@type table<string, { method?: string, lhs?: string, rhs?: function, mode?: string, desc?: string, extra?: function, expr?: boolean }>
+    ---@type table<string, { method?: string, lhs?: string, rhs?: function, mode?: string, desc?: string, extra?: function }>
     local maps = {
       {
         method = methods.textDocument_definition,
@@ -157,26 +165,26 @@ autocmd("LspAttach", {
           vim.lsp.completion.enable(true, client.id, bufnr, {
             autotrigger = true,
             convert = function(item)
+              local word = item.label
+
+              if item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet then
+                word = item.label:gsub("%b()", "")
+              elseif item.textEdit then
+                word = item.textEdit.newText:match "^(%S*)" or item.textEdit.newText
+              elseif item.insertText and item.insertText ~= "" then
+                word = item.insertText
+              end
+
               return {
                 kind_hlgroup = "Yellow",
-                abbr = item.label:gsub("%b()", ""),
                 kind = symbols[vim.lsp.protocol.CompletionItemKind[item.kind]],
-                info = "",
+                abbr = item.label:gsub("%b()", ""),
+                word = word,
               }
             end,
           })
         end,
       },
-      -- {
-      --   method = methods.textDocument_completion,
-      --   mode = "i",
-      --   lhs = "<CR>",
-      --   rhs = function()
-      --     -- TODO: check if something is selected
-      --     return vim.fn.pumvisible() == 1 and "<C-y>" or "<CR>"
-      --   end,
-      --   expr = true,
-      -- },
       {
         method = methods.textDocument_completion,
         mode = "i",
@@ -188,20 +196,65 @@ autocmd("LspAttach", {
       {
         method = methods.textDocument_completion,
         mode = "i",
+        lhs = "<CR>",
+        rhs = function()
+          local keys
+          if vim.fn.pumvisible() == 1 then
+            local info = vim.fn.complete_info()
+
+            if info.selected == -1 or not should_confirm then
+              keys = vim.api.nvim_replace_termcodes("<C-e>", true, false, true)
+                .. require("nvim-autopairs").autopairs_cr()
+            else
+              keys = vim.api.nvim_replace_termcodes("<C-y>", true, false, true)
+            end
+          else
+            keys = require("nvim-autopairs").autopairs_cr()
+          end
+
+          vim.api.nvim_feedkeys(keys, "n", false)
+        end,
+      },
+      {
+        method = methods.textDocument_completion,
+        mode = "i",
         lhs = "<Tab>",
         rhs = function()
-          return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+          local function has_words_before()
+            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+            return col ~= 0 and not vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s"
+          end
+
+          local keys
+          if vim.fn.pumvisible() == 1 then
+            should_confirm = true
+            keys = vim.api.nvim_replace_termcodes("<C-n>", true, false, true)
+          elseif has_words_before() then
+            vim.lsp.completion.trigger()
+          else
+            keys = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+          end
+
+          if keys then
+            vim.api.nvim_feedkeys(keys, "n", false)
+          end
         end,
-        expr = true,
       },
       {
         method = methods.textDocument_completion,
         mode = "i",
         lhs = "<S-Tab>",
         rhs = function()
-          return vim.fn.pumvisible() == 1 and "<C-p>" or "<S-Tab>"
+          local keys
+          if vim.fn.pumvisible() == 1 then
+            should_confirm = true
+            keys = vim.api.nvim_replace_termcodes("<C-p>", true, false, true)
+          else
+            keys = vim.api.nvim_replace_termcodes("<S-Tab>", true, false, true)
+          end
+
+          vim.api.nvim_feedkeys(keys, "n", false)
         end,
-        expr = true,
       },
     }
 
@@ -211,7 +264,6 @@ autocmd("LspAttach", {
           vim.keymap.set(mapping.mode or "n", mapping.lhs, mapping.rhs, {
             buffer = bufnr,
             desc = mapping.desc,
-            expr = mapping.expr,
           })
         end
 
