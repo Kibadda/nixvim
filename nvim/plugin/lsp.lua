@@ -32,4 +32,4 @@ for _, server in ipairs(require "me.lsp.servers") do
   lsp.register(server)
 end
 
-require("me.snippetls").register()
+-- require("me.snippetls").register()

@@ -30,29 +30,29 @@ return {
     end,
 
     getset = function()
-      local property
+      -- local property
+      --
+      -- vim.ui.input({
+      --   prompt = "Property name: ",
+      -- }, function(choice)
+      --   property = choice
+      -- end)
+      --
+      -- if not property or property == "" then
+      --   return ""
+      -- end
+      --
+      -- return string.format(
+      --   "public function get%s(): $1 {\n\treturn \\$this->%s;\n}\n\npublic function set%s($1 \\$%s): void {\n\t\\$this->%s = \\$%s;\n}",
+      --   property:gsub("^%l", string.upper),
+      --   property,
+      --   property:gsub("^%l", string.upper),
+      --   property,
+      --   property,
+      --   property
+      -- )
 
-      vim.ui.input({
-        prompt = "Property name: ",
-      }, function(choice)
-        property = choice
-      end)
-
-      if not property or property == "" then
-        return ""
-      end
-
-      return string.format(
-        "public function get%s(): $1 {\n\treturn \\$this->%s;\n}\n\npublic function set%s($1 \\$%s): void {\n\t\\$this->%s = \\$%s;\n}",
-        property:gsub("^%l", string.upper),
-        property,
-        property:gsub("^%l", string.upper),
-        property,
-        property,
-        property
-      )
-
-      -- return "public function get$1(): $2 {\n\treturn \\$this->$3;\n}\n\npublic function set$1($2 \\$$3): void {\n\t\\$this->$3 = \\$$3;\n}"
+      return "public function get$1(): $2 {\n\treturn \\$this->$3;\n}\n\npublic function set$1($2 \\$$3): void {\n\t\\$this->$3 = \\$$3;\n}"
     end,
   },
 

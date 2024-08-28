@@ -36,18 +36,30 @@ local config = {
             },
           }
         elseif method == vim.lsp.protocol.Methods.textDocument_completion then
+          ---@cast params lsp.CompletionParams
+
           local items = {}
 
-          local function add_snippet(name, snippet)
-            ---@type lsp.CompletionItem
-            local item = {
-              label = name,
-              kind = vim.lsp.protocol.CompletionItemKind.Snippet,
-              insertTextFormat = vim.lsp.protocol.InsertTextFormat.Snippet,
-              insertText = type(snippet) == "function" and snippet() or snippet,
-            }
+          local bufnr = vim.uri_to_bufnr(params.textDocument.uri)
+          local previous_word = vim.api
+            .nvim_buf_get_text(bufnr, params.position.line, 0, params.position.line, params.position.character, {})[1]
+            :match "(%S*)$"
 
-            table.insert(items, item)
+          local function add_snippet(name, snippet)
+            local text = type(snippet) == "function" and snippet() or snippet
+
+            if vim.startswith(text, previous_word) then
+              ---@type lsp.CompletionItem
+              local item = {
+                label = name,
+                kind = vim.lsp.protocol.CompletionItemKind.Snippet,
+                insertTextFormat = vim.lsp.protocol.InsertTextFormat.Snippet,
+                insertText = type(snippet) == "function" and snippet() or snippet,
+                sortText = "0",
+              }
+
+              table.insert(items, item)
+            end
           end
 
           local snippets = require "me.snippetls.snippets"
@@ -56,7 +68,7 @@ local config = {
             add_snippet(name, snippet)
           end
 
-          local filetype = vim.filetype.match { buf = vim.uri_to_bufnr(params.textDocument.uri) }
+          local filetype = vim.filetype.match { buf = bufnr }
 
           if filetype and snippets[filetype] then
             for name, snippet in pairs(snippets[filetype]) do
@@ -77,14 +89,16 @@ function M.register()
   vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("SnippetLs", { clear = true }),
     callback = function(args)
-      if M.client then
-        vim.lsp.buf_attach_client(args.buf, M.client.id)
-      else
+      if not M.client then
         local id = vim.lsp.start_client(config)
 
         if id then
           M.client = vim.lsp.get_client_by_id(id)
         end
+      end
+
+      if M.client then
+        vim.lsp.buf_attach_client(args.buf, M.client.id)
       end
     end,
   })
