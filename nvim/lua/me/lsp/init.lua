@@ -12,9 +12,9 @@ local M = {
 
 ---@param server me.lsp.ServerConfig
 local function start(server, buf)
-  local root = server.root_markers and vim.fs.root(buf, server.root_markers) or nil
-
-  local id = vim.lsp.start(vim.tbl_deep_extend("keep", { root_dir = root }, server.config))
+  local id = vim.lsp.start(vim.tbl_deep_extend("keep", {
+    root_dir = vim.fs.root(buf, server.root_markers),
+  }, server.config))
 
   if id then
     server.clients = server.clients or {}
