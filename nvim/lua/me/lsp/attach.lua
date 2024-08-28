@@ -46,6 +46,28 @@ autocmd("LspAttach", {
         desc = "Definition",
       },
       {
+        method = methods.textDocument_definition,
+        lhs = "gD",
+        rhs = function()
+          local params = vim.lsp.util.make_position_params()
+          vim.lsp.buf_request(bufnr, vim.lsp.protocol.Methods.textDocument_definition, params, function(_, result)
+            if not result or vim.tbl_isempty(result) then
+              return nil
+            end
+            local buf = vim.lsp.util.preview_location(result[1], {})
+            if buf then
+              local cur_buf = vim.api.nvim_get_current_buf()
+              local filetype = vim.bo[cur_buf].filetype
+              if filetype == "php" then
+                filetype = "php_only"
+              end
+              vim.bo[buf].filetype = filetype
+            end
+          end)
+        end,
+        desc = "Peek definition",
+      },
+      {
         method = methods.textDocument_references,
         lhs = "grr",
         rhs = function()
@@ -62,14 +84,6 @@ autocmd("LspAttach", {
           vim.lsp.buf.implementation { on_list = on_list }
         end,
         desc = "Implementations",
-      },
-      {
-        method = methods.textDocument_declaration,
-        lhs = "gD",
-        rhs = function()
-          vim.lsp.buf.declaration { on_list = on_list }
-        end,
-        desc = "Declaration",
       },
       {
         method = methods.textDocument_documentSymbol,
