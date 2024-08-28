@@ -7,7 +7,6 @@ local groups = {
   highlight = augroup("LspAttachHighlight", { clear = false }),
   codelens = augroup("LspAttachCodelens", { clear = false }),
   inlay = augroup("LspAttachInlay", { clear = false }),
-  completion = augroup("LspAttachCompletion", { clear = false }),
 }
 
 autocmd("LspAttach", {
@@ -150,15 +149,6 @@ autocmd("LspAttach", {
                 kind = symbols[vim.lsp.protocol.CompletionItemKind[item.kind]],
                 info = "",
               }
-            end,
-          })
-
-          clear { group = groups.completion, buffer = bufnr }
-          autocmd("CompleteDone", {
-            group = groups.completion,
-            buffer = bufnr,
-            callback = function()
-              vim.cmd.pclose { bang = true }
             end,
           })
         end,
