@@ -6,7 +6,16 @@ local group = vim.api.nvim_create_augroup("StarterScreen", { clear = true })
 local ns = vim.api.nvim_create_namespace "StarterScreen"
 local box_width = #"│"
 
-local settings = { timeoutlen = 1, listchars = "", cursorline = false }
+local settings = {
+  timeoutlen = 1,
+  listchars = "",
+  cursorline = false,
+  statuscolumn = "",
+  signcolumn = "no",
+  number = false,
+  relativenumber = false,
+  winbar = "",
+}
 
 local function setup_options()
   for key in pairs(settings) do
@@ -38,8 +47,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.bo[buf].modifiable = false
 
     local function set_lines()
-      local extmarks = {}
       local width = vim.fn.strdisplaywidth(header[1])
+      local left_offset = math.floor((vim.o.columns - width) / 2)
+      local extmarks = {}
       local lines = {}
 
       table.insert(lines, "┌" .. ("─"):rep(width + 4) .. "┐")
@@ -86,7 +96,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
           for _, pos in ipairs(matches[2][i]) do
             table.insert(
               extmarks,
-              { line = #lines, col = box_width + pos + 2, end_col = box_width + pos + 3, hl = "Bold" }
+              { line = #lines, col = box_width + pos + 2, end_col = box_width + pos + 3, hl = "Underlined" }
             )
           end
         end
@@ -99,16 +109,25 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
       table.insert(lines, "└" .. ("─"):rep(width + 4) .. "┘")
 
+      for i = 1, #lines do
+        lines[i] = (" "):rep(left_offset) .. lines[i]
+      end
+
+      local top_offset = math.ceil((vim.o.lines - #lines) / 2)
+      for _ = 1, top_offset do
+        table.insert(lines, 1, "")
+      end
+
       vim.bo[buf].modifiable = true
       vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
       vim.bo[buf].modifiable = false
       vim.bo[buf].modified = false
-      vim.api.nvim_win_set_cursor(0, { prompt_offset + 1, 5 + #prompt })
+      vim.api.nvim_win_set_cursor(0, { top_offset + prompt_offset + 1, left_offset + 5 + #prompt })
 
       for _, extmark in ipairs(extmarks) do
-        vim.api.nvim_buf_set_extmark(buf, ns, extmark.line, extmark.col, {
-          end_line = extmark.line,
-          end_col = extmark.end_col,
+        vim.api.nvim_buf_set_extmark(buf, ns, top_offset + extmark.line, left_offset + extmark.col, {
+          end_line = top_offset + extmark.line,
+          end_col = left_offset + extmark.end_col,
           hl_group = extmark.hl,
         })
       end
