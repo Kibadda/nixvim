@@ -21,6 +21,16 @@
       url = "github:MunifTanjim/nui.nvim";
       flake = false;
     };
+
+    git-nvim = {
+      url = "github:Kibadda/git.nvim";
+      flake = false;
+    };
+    session-nvim = {
+      url = "github:Kibadda/session.nvim";
+      flake = false;
+    };
+
     vim-pasta = {
       url = "github:ku1ik/vim-pasta";
       flake = false;
@@ -35,10 +45,6 @@
     };
     conform-nvim = {
       url = "github:stevearc/conform.nvim";
-      flake = false;
-    };
-    git-nvim = {
-      url = "github:Kibadda/git.nvim";
       flake = false;
     };
     mini-ai = {
@@ -63,10 +69,6 @@
     };
     nvim-recorder = {
       url = "github:chrisgrieser/nvim-recorder";
-      flake = false;
-    };
-    session-nvim = {
-      url = "github:Kibadda/session.nvim";
       flake = false;
     };
     nvim-treesitter = {
