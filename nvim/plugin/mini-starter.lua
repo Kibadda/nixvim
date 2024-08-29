@@ -1,4 +1,4 @@
-if vim.fn.argc() > 0 or vim.g.loaded_plugin_mini_starter then
+if true or vim.fn.argc() > 0 or vim.g.loaded_plugin_mini_starter then
   return
 end
 

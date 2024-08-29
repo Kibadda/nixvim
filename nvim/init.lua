@@ -13,3 +13,5 @@ function vim.keymap.set(mode, lhs, rhs, opts)
   opts.silent = opts.silent ~= false
   set(mode, lhs, rhs, opts)
 end
+
+require "me.starter"
