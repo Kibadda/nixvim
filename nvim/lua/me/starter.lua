@@ -119,7 +119,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
         lines[i] = (" "):rep(left_offset) .. lines[i]
       end
 
-      top_offset = math.max(0, math.floor((vim.o.lines - #lines) / 2))
+      top_offset = math.max(0, math.floor((vim.o.lines - 2 - #lines) / 2))
       for _ = 1, top_offset do
         table.insert(lines, 1, "")
       end
