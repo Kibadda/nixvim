@@ -63,10 +63,6 @@
       url = "github:echasnovski/mini.pick";
       flake = false;
     };
-    mini-starter = {
-      url = "github:echasnovski/mini.starter";
-      flake = false;
-    };
     nvim-recorder = {
       url = "github:chrisgrieser/nvim-recorder";
       flake = false;

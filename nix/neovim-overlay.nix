@@ -111,7 +111,6 @@
     mini-diff
     mini-hipatterns
     mini-pick
-    mini-starter
     nvim-recorder
     nvim-treesitter
     treesj

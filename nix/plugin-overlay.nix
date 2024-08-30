@@ -18,7 +18,6 @@ in {
     mini-diff = mkNvimPlugin inputs.mini-diff "mini.diff";
     mini-hipatterns = mkNvimPlugin inputs.mini-hipatterns "mini.hipatterns";
     mini-pick = mkNvimPlugin inputs.mini-pick "mini.pick";
-    mini-starter = mkNvimPlugin inputs.mini-starter "mini.starter";
     nvim-recorder = mkNvimPlugin inputs.nvim-recorder "nvim-recorder";
     session-nvim = mkNvimPlugin inputs.session-nvim "session.nvim";
     nvim-treesitter = mkNvimPlugin inputs.nvim-treesitter "nvim-treesitter";

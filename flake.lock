@@ -376,22 +376,6 @@
         "type": "github"
       }
     },
-    "mini-starter": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1724766939,
-        "narHash": "sha256-cekcC63tcGRDCNj0nRAPx8MMTTCe7xf1G5W8W593RSY=",
-        "owner": "echasnovski",
-        "repo": "mini.starter",
-        "rev": "5c9d862ce7fbde5a2d7168e55a3540f399910ca0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "echasnovski",
-        "repo": "mini.starter",
-        "type": "github"
-      }
-    },
     "neovim-nightly": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -630,7 +614,6 @@
         "mini-diff": "mini-diff",
         "mini-hipatterns": "mini-hipatterns",
         "mini-pick": "mini-pick",
-        "mini-starter": "mini-starter",
         "neovim-nightly": "neovim-nightly",
         "nixpkgs": "nixpkgs_3",
         "nui-nvim": "nui-nvim",
