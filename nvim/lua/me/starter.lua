@@ -93,7 +93,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
         local prefix = "  "
         if i == selected then
           prefix = "> "
-          table.insert(extmarks, { line = #lines, col = box_width, end_col = box_width + 1, hl = "Blue" })
+          table.insert(
+            extmarks,
+            { line = #lines, col = box_width, end_col = box_width + #matches[1][i] + 2, hl = "Blue" }
+          )
         end
         if matches[2] then
           for _, pos in ipairs(matches[2][i]) do
@@ -162,6 +165,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
       set_lines()
     end)
     map("<C-w>", function()
+      update_prompt(#prompt)
+      set_lines()
+    end)
+    map("<Esc>", function()
       update_prompt(#prompt)
       set_lines()
     end)
