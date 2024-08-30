@@ -17,24 +17,27 @@ local settings = {
   winbar = "",
 }
 
-local function setup_options()
+local function setup()
   for key in pairs(settings) do
     settings[key], vim.o[key] = vim.o[key], settings[key]
   end
 end
 
-local function restore_options()
+local function teardown()
   for key, value in pairs(settings) do
     vim.o[key] = value
   end
+
+  vim.api.nvim_clear_autocmds { group = group }
 end
 
 vim.api.nvim_create_autocmd("VimEnter", {
   group = group,
   callback = function()
-    setup_options()
+    setup()
 
     local header = require("me.data.weekdays").get()
+    local top_offset = 0
     local prompt_offset = #header + 6
     local list_offset = 2
 
@@ -48,7 +51,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     local function set_lines()
       local width = vim.fn.strdisplaywidth(header[1])
-      local left_offset = math.floor((vim.o.columns - width) / 2)
+      local left_offset = math.max(0, math.floor((vim.o.columns - width) / 2))
       local extmarks = {}
       local lines = {}
 
@@ -113,7 +116,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
         lines[i] = (" "):rep(left_offset) .. lines[i]
       end
 
-      local top_offset = math.ceil((vim.o.lines - #lines) / 2)
+      top_offset = math.max(0, math.floor((vim.o.lines - #lines) / 2))
       for _ = 1, top_offset do
         table.insert(lines, 1, "")
       end
@@ -165,8 +168,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     map("<CR>", function()
       local line = vim.api.nvim_buf_get_lines(
         buf,
-        prompt_offset + list_offset + selected - 1,
-        prompt_offset + list_offset + selected,
+        top_offset + prompt_offset + list_offset + selected - 1,
+        top_offset + prompt_offset + list_offset + selected,
         false
       )[1]
 
@@ -196,7 +199,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.api.nvim_create_autocmd("BufLeave", {
       group = group,
       buffer = buf,
-      callback = restore_options,
+      callback = teardown,
     })
   end,
 })
