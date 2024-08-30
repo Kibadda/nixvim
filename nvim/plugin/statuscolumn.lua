@@ -1,3 +1,9 @@
+if vim.g.loaded_plugin_statuscolumn then
+  return
+end
+
+vim.g.loaded_plugin_statuscolumn = 1
+
 local diagnostic_mapping = {
   { symbol = "E ", highlight = "DiagnosticSignError" },
   { symbol = "W ", highlight = "DiagnosticSignWarn" },
@@ -50,10 +56,12 @@ local function git()
   return "%#" .. hl .. "# ▏%*"
 end
 
-return function()
+function Statuscolumn()
   if vim.bo.buftype ~= "" then
     return ""
   end
 
   return ("%s%%=%s%s"):format(diagnostics(), numbers(), git())
 end
+
+vim.o.statuscolumn = "%{%v:lua.Statuscolumn()%}"
