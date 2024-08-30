@@ -1,3 +1,9 @@
+if vim.g.loaded_plugin_winbar then
+  return
+end
+
+vim.g.loaded_plugin_winbar = 1
+
 local function icon()
   local ok, devicons = pcall(require, "nvim-web-devicons")
 
@@ -29,7 +35,7 @@ local function modified()
   return vim.bo.modified and " %#WinBarModified#●︎%*" or ""
 end
 
-return function()
+function Winbar()
   if vim.bo.buftype ~= "" then
     return ""
   end
@@ -42,3 +48,5 @@ return function()
 
   return (" %s%s:%%L%s"):format(icon(), filepath(path), modified())
 end
+
+vim.o.winbar = "%{%v:lua.Winbar()%}"
