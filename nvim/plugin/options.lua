@@ -49,4 +49,3 @@ o.timeoutlen = 1000
 o.undofile = true
 o.updatetime = 250
 o.wildmode = "longest:full,full"
-o.statusline = "%{%v:lua.require'me.statusline'()%}"

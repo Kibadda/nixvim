@@ -1,3 +1,9 @@
+if vim.g.loaded_plugin_statusline then
+  return
+end
+
+vim.g.loaded_plugin_statusline = 1
+
 local mode_mapping = {
   n = { text = "NORMAL", hl = "StatusLineNormal" },
   v = { text = "VISUAL", hl = "StatusLineVisual" },
@@ -172,7 +178,7 @@ local function position()
   }
 end
 
-return function()
+function Statusline()
   local data = {
     mode(),
     git(),
@@ -208,3 +214,5 @@ return function()
 
   return ("%s%s%s%s%%=%s%s%s%s"):format(unpack(calculate()))
 end
+
+vim.o.statusline = "%{%v:lua.Statusline()%}"
