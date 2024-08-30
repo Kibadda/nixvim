@@ -149,28 +149,29 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     set_lines()
 
-    local function map(lhs, rhs)
-      vim.keymap.set("n", lhs, rhs, { buffer = buf })
+    local function map(lhs, rhs, reset_lines)
+      vim.keymap.set("n", lhs, function()
+        rhs()
+        if reset_lines ~= false then
+          set_lines()
+        end
+      end, { buffer = buf })
     end
 
     for key in ("abcdefghijklmnopqrstuvwxyz"):gmatch "." do
       map(key, function()
         update_prompt(key)
-        set_lines()
       end)
     end
 
     map("<BS>", function()
       update_prompt(1)
-      set_lines()
     end)
     map("<C-w>", function()
       update_prompt(#prompt)
-      set_lines()
     end)
     map("<Esc>", function()
       update_prompt(#prompt)
-      set_lines()
     end)
     map("<CR>", function()
       local line = vim.api.nvim_buf_get_lines(
@@ -185,14 +186,13 @@ vim.api.nvim_create_autocmd("VimEnter", {
       if session then
         require("session").load(session)
       end
-    end)
+    end, false)
     map("<C-j>", function()
       if selected == shown then
         selected = 1
       else
         selected = selected + 1
       end
-      set_lines()
     end)
     map("<C-k>", function()
       if selected == 1 then
@@ -200,7 +200,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
       else
         selected = selected - 1
       end
-      set_lines()
     end)
 
     vim.api.nvim_create_autocmd("BufLeave", {
