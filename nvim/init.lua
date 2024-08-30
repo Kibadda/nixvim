@@ -14,4 +14,11 @@ function vim.keymap.set(mode, lhs, rhs, opts)
   set(mode, lhs, rhs, opts)
 end
 
+vim.g.loaded_netrw = 0
+vim.g.loaded_netrwPlugin = 0
+vim.g.loaded_gzip = 0
+vim.g.loaded_tarPlugin = 0
+vim.g.loaded_tutor_mode_plugin = 0
+vim.g.loaed_zipPlugin = 0
+
 require "me.starter"
