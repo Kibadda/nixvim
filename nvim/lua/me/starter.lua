@@ -207,5 +207,15 @@ vim.api.nvim_create_autocmd("VimEnter", {
       buffer = buf,
       callback = teardown,
     })
+
+    vim.api.nvim_create_autocmd("WinResized", {
+      group = group,
+      callback = function()
+        set_lines()
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        vim.api.nvim_win_set_cursor(0, { 1, 0 })
+        vim.api.nvim_win_set_cursor(0, cursor)
+      end,
+    })
   end,
 })
