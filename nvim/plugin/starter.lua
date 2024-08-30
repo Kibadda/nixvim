@@ -1,6 +1,8 @@
-if vim.fn.argc() > 0 then
+if vim.fn.argc() > 0 or vim.g.loaded_plugin_starter then
   return
 end
+
+vim.g.loaded_plugin_starter = 1
 
 local group = vim.api.nvim_create_augroup("StarterScreen", { clear = true })
 local ns = vim.api.nvim_create_namespace "StarterScreen"
@@ -148,6 +150,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
 
     set_lines()
+
+    vim.print(vim.fn.reltimefloat(vim.fn.reltime(_G.time)))
+    vim.print(vim.fn.reltimestr(vim.fn.reltime(_G.time)))
 
     local function map(lhs, rhs, reset_lines)
       vim.keymap.set("n", lhs, function()

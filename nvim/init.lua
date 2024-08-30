@@ -20,5 +20,3 @@ vim.g.loaded_gzip = 0
 vim.g.loaded_tarPlugin = 0
 vim.g.loaded_tutor_mode_plugin = 0
 vim.g.loaed_zipPlugin = 0
-
-require "me.starter"
