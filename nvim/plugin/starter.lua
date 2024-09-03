@@ -151,9 +151,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
     set_lines()
 
-    vim.print(vim.fn.reltimefloat(vim.fn.reltime(_G.time)))
-    vim.print(vim.fn.reltimestr(vim.fn.reltime(_G.time)))
-
     local function map(lhs, rhs, reset_lines)
       vim.keymap.set("n", lhs, function()
         rhs()
