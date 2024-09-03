@@ -119,6 +119,7 @@
   all-plugins = base-plugins ++ (with final.nvimPlugins; [
     git-nvim
     session-nvim
+    kanban-nvim
   ]);
 
   nvim-dev = mkNeovim {
@@ -132,6 +133,10 @@
       {
         name = "session.nvim";
         url = "git@github.com:Kibadda/session.nvim";
+      }
+      {
+        name = "kanban.nvim";
+        url = "git@github.com:Kibadda/kanban.nvim";
       }
     ];
   };

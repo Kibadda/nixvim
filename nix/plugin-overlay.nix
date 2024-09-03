@@ -20,6 +20,7 @@ in {
     mini-pick = mkNvimPlugin inputs.mini-pick "mini.pick";
     nvim-recorder = mkNvimPlugin inputs.nvim-recorder "nvim-recorder";
     session-nvim = mkNvimPlugin inputs.session-nvim "session.nvim";
+    kanban-nvim = mkNvimPlugin inputs.kanban-nvim "kanban.nvim";
     nvim-treesitter = mkNvimPlugin inputs.nvim-treesitter "nvim-treesitter";
     treesj = mkNvimPlugin inputs.treesj "treesj";
   };

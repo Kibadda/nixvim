@@ -296,6 +296,22 @@
         "type": "github"
       }
     },
+    "kanban-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1725360842,
+        "narHash": "sha256-SVtYIDh+8VuO2iLSXjAib6N6YB1k3eX+ncoWTjOQMLE=",
+        "owner": "Kibadda",
+        "repo": "kanban.nvim",
+        "rev": "84d774658ad224f26046fac09572f72aa21b85bf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kibadda",
+        "repo": "kanban.nvim",
+        "type": "github"
+      }
+    },
     "luvit-meta": {
       "flake": false,
       "locked": {
@@ -610,6 +626,7 @@
         "flake-utils": "flake-utils",
         "gen-luarc": "gen-luarc",
         "git-nvim": "git-nvim",
+        "kanban-nvim": "kanban-nvim",
         "mini-ai": "mini-ai",
         "mini-diff": "mini-diff",
         "mini-hipatterns": "mini-hipatterns",

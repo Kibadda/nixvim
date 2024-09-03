@@ -30,6 +30,10 @@
       url = "github:Kibadda/session.nvim";
       flake = false;
     };
+    kanban-nvim = {
+      url = "github:Kibadda/kanban.nvim";
+      flake = false;
+    };
 
     vim-pasta = {
       url = "github:ku1ik/vim-pasta";
