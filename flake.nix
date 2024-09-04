@@ -4,7 +4,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    neovim-nightly.url = "github:Kibadda/neovim-nightly-overlay";
+    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
     gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
     flake-utils.url = "github:numtide/flake-utils";
 

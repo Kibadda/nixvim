@@ -217,7 +217,7 @@ autocmd("LspAttach", {
       },
       {
         method = methods.textDocument_completion,
-        mode = "i",
+        mode = { "i", "s" },
         lhs = "<Tab>",
         rhs = function()
           local function has_words_before()
@@ -242,7 +242,7 @@ autocmd("LspAttach", {
       },
       {
         method = methods.textDocument_completion,
-        mode = "i",
+        mode = { "i", "s" },
         lhs = "<S-Tab>",
         rhs = function()
           local keys
@@ -254,6 +254,24 @@ autocmd("LspAttach", {
           end
 
           vim.api.nvim_feedkeys(keys, "n", false)
+        end,
+      },
+      {
+        mode = { "i", "s" },
+        lhs = "<C-l>",
+        rhs = function()
+          if vim.snippet.active { direction = 1 } then
+            vim.snippet.jump(1)
+          end
+        end,
+      },
+      {
+        mode = { "i", "s" },
+        lhs = "<C-h>",
+        rhs = function()
+          if vim.snippet.active { direction = -1 } then
+            vim.snippet.jump(-1)
+          end
         end,
       },
     }

@@ -402,15 +402,15 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1725348536,
-        "narHash": "sha256-wlMucKrvpSinQZ67NTf/hJtLW/Zrc5ZJu8xwWc3U0/w=",
-        "owner": "Kibadda",
+        "lastModified": 1725415370,
+        "narHash": "sha256-F5Obt4M07Jal6P0QMkbL9Qrsux7CmhbmEuO4d1NWOrk=",
+        "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "ffb6e9b8cc064e513bbe6f7414aa784e01885aab",
+        "rev": "fdc7d407e29b17633d2568b5f46ead383ef85172",
         "type": "github"
       },
       "original": {
-        "owner": "Kibadda",
+        "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
         "type": "github"
       }
