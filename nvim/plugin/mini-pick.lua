@@ -73,7 +73,7 @@ function pick.start(opts)
       char = "<C-q>",
       func = function()
         local items = {}
-        for _, item in ipairs(vim.print(pick.get_picker_matches().all)) do
+        for _, item in ipairs(pick.get_picker_matches().all) do
           if type(item) == "table" then
             if not item.filename then
               item.filename = item.path
