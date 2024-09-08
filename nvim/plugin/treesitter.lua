@@ -36,6 +36,17 @@ local parsers = {
     },
     tier = 3,
   },
+
+  {
+    name = "blade",
+    ---@diagnostic disable-next-line:missing-fields
+    install_info = {
+      url = "https://github.com/EmranMR/tree-sitter-blade",
+      files = { "src/parser.c" },
+      branch = "main",
+    },
+    tier = 3,
+  },
 }
 
 local function add_parsers()
