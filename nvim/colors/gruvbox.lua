@@ -431,7 +431,7 @@ local theme = {
   WarningFloat = { fg = colors.bright_yellow, bg = colors.bright_black },
   InfoFloat = { fg = colors.bright_blue, bg = colors.bright_black },
   HintFloat = { fg = colors.bright_green, bg = colors.bright_black },
-  RedSign = { fg = colors.bright_red, bg = colors.bright_black },
+  RedSign = { fg = colors.bright_red },
   LspReferenceText = { link = "CurrentWord" },
   LspReferenceRead = { link = "CurrentWord" },
   LspReferenceWrite = { link = "CurrentWord" },
