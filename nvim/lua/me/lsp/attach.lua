@@ -168,7 +168,7 @@ autocmd("LspAttach", {
               local word = item.label
 
               if item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet then
-                word = item.label:gsub("%b()", "")
+                word = (item.insertText or item.label):gsub("%b()", "")
               elseif item.textEdit then
                 word = item.textEdit.newText:match "^(%S*)" or item.textEdit.newText
               elseif item.insertText and item.insertText ~= "" then
