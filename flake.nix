@@ -34,6 +34,10 @@
       url = "github:Kibadda/kanban.nvim";
       flake = false;
     };
+    starter-nvim = {
+      url = "github:Kibadda/starter.nvim";
+      flake = false;
+    };
 
     vim-pasta = {
       url = "github:ku1ik/vim-pasta";

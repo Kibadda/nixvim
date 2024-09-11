@@ -120,6 +120,7 @@
     git-nvim
     session-nvim
     kanban-nvim
+    starter-nvim
   ]);
 
   nvim-dev = mkNeovim {
@@ -137,6 +138,10 @@
       {
         name = "kanban.nvim";
         url = "git@github.com:Kibadda/kanban.nvim";
+      }
+      {
+        name = "starter.nvim";
+        url = "git@github.com:Kibadda/starter.nvim";
       }
     ];
   };

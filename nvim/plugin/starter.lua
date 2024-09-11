@@ -1,4 +1,17 @@
-if vim.fn.argc() > 0 or vim.g.loaded_plugin_starter then
+vim.g.starter = {
+  items = function()
+    return vim.tbl_map(function(session)
+      return {
+        text = session,
+        action = function()
+          require("session").load(session)
+        end,
+      }
+    end, require("session").list())
+  end,
+}
+
+if true or vim.fn.argc() > 0 or vim.g.loaded_plugin_starter then
   return
 end
 
