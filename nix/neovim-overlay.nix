@@ -38,14 +38,14 @@
 
       buildPhase = ''
         mkdir -p $out/nvim
-        mkdir -p $out/lua
+        mkdir -p $out/lib
         rm init.lua
       '';
 
       installPhase = ''
         cp -r after $out/after
         rm -r after
-        cp -r lua $out/lua
+        cp -r lua $out/lib
         rm -r lua
         cp -r * $out/nvim
       '';
@@ -54,7 +54,7 @@
     initLua =
       ''
         vim.loader.enable()
-        vim.opt.rtp:prepend('${nvimRtp}/lua')
+        vim.opt.rtp:prepend('${nvimRtp}/lib')
       ''
       + ""
       + (builtins.readFile ../nvim/init.lua)
