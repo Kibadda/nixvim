@@ -48,6 +48,13 @@ local servers = {
     root_markers = { "composer.json", ".git" },
     config = {
       cmd = { "intelephense", "--stdio" },
+      capabilities = {
+        textDocument = {
+          formatting = {
+            dynamicRegistration = false,
+          },
+        },
+      },
       settings = {
         intelephense = {
           -- stylua: ignore
