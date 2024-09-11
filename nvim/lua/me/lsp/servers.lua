@@ -12,6 +12,7 @@ local servers = {
 
         config.settings.Lua.workspace.library = config.settings.Lua.workspace.library or {}
 
+        -- for own external plugins
         if params.rootPath:find ".nvim" then
           table.insert(config.settings.Lua.workspace.library, vim.env.VIMRUNTIME .. "/lua")
         end
@@ -22,9 +23,6 @@ local servers = {
       end,
       settings = {
         Lua = {
-          runtime = {
-            pathStrict = true,
-          },
           format = {
             enable = false,
           },
