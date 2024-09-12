@@ -1,7 +1,33 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local clear = vim.api.nvim_clear_autocmds
-local symbols = require "me.data.symbols"
+local symbols = {
+  Text = "󰉿",
+  Method = "󰆧",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "󰜢",
+  Variable = "󰀫",
+  Class = "󰠱",
+  Interface = "",
+  Module = "",
+  Property = "󰜢",
+  Unit = "󰑭",
+  Value = "󰎠",
+  Enum = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "󰈇",
+  Folder = "󰉋",
+  EnumMember = "",
+  Constant = "󰏿",
+  Struct = "󰙅",
+  Event = "",
+  Operator = "󰆕",
+  TypeParameter = "",
+}
 
 local should_confirm = false
 local trigger = vim.lsp.completion.trigger
