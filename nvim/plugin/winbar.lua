@@ -4,6 +4,15 @@ end
 
 vim.g.loaded_plugin_winbar = 1
 
+for name, hl in pairs {
+  WinBar = { fg = vim.g.colors.grey },
+  WinBarNC = { fg = vim.g.colors.grey },
+  WinBarFilename = { fg = "#A5B4FC" },
+  WinBarModified = { fg = vim.g.colors.red },
+} do
+  vim.api.nvim_set_hl(0, name, hl)
+end
+
 local function icon()
   local ok, devicons = pcall(require, "nvim-web-devicons")
 

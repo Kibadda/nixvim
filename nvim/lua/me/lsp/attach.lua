@@ -202,7 +202,6 @@ autocmd("LspAttach", {
               end
 
               return {
-                kind_hlgroup = "Yellow",
                 kind = symbols[vim.lsp.protocol.CompletionItemKind[item.kind]],
                 abbr = item.label:gsub("%b()", ""),
                 word = word,
