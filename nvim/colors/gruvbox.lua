@@ -121,6 +121,7 @@ for name, hl in
     DiagnosticWarn = { fg = colors.yellow },
     DiagnosticInfo = { fg = colors.blue },
     DiagnosticHint = { fg = colors.green },
+    DiagnosticOk = { fg = colors.green },
     DiagnosticFloatingError = { fg = colors.red, bg = colors.blavk },
     DiagnosticFloatingWarn = { fg = colors.yellow, bg = colors.black },
     DiagnosticFloatingInfo = { fg = colors.blue, bg = colors.black },
@@ -129,6 +130,7 @@ for name, hl in
     DiagnosticUnderlineWarn = { underline = true, special = colors.yellow },
     DiagnosticUnderlineInfo = { underline = true, special = colors.blue },
     DiagnosticUnderlineHint = { underline = true, special = colors.green },
+    DiagnosticDeprecated = { strikethrough = true, special = colors.bright_blue },
 
     LspCodeLens = { fg = colors.blue },
     LspInlayHint = { fg = colors.blue },
