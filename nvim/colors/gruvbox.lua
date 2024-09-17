@@ -184,9 +184,6 @@ for name, hl in pairs {
   StatusLineFormatOn = { fg = colors.bright_green },
   StatusLineFormatOff = { fg = colors.bright_red },
   StatusLineClients = { bold = true },
-  StatusLineDiffAdd = { fg = colors.green },
-  StatusLineDiffDelete = { fg = colors.red },
-  StatusLineDiffChange = { fg = colors.blue },
 
   WinBar = { fg = colors.grey },
   WinBarNC = { fg = colors.grey },

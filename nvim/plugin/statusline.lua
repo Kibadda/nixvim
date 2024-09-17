@@ -38,12 +38,7 @@ local function git()
     local changed = status.changed or 0
 
     return {
-      section = " %#StatusLineDiffAdd#+"
-        .. added
-        .. "%#StatusLineDiffDelete#-"
-        .. removed
-        .. "%#StatusLineDiffChange#~"
-        .. changed,
+      section = " %#Added#+" .. added .. "%#Removed#-" .. removed .. "%#Changed#~" .. changed,
       length = tostring(added):len() + tostring(removed):len() + tostring(changed):len() + 3,
     }
   end
