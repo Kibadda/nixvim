@@ -23,22 +23,8 @@ local function diagnostics()
   return "%#" .. severity.highlight .. "#" .. severity.symbol .. "%*"
 end
 
-local function numbers()
-  if vim.v.virtnum > 0 then
-    return ""
-  end
-
-  if vim.v.relnum ~= 0 then
-    return ("%02d"):format(vim.v.relnum)
-  end
-
-  return ("%02d"):format(vim.v.lnum)
-end
-
-local function git()
+local function diff_highlight()
   local ns = vim.api.nvim_get_namespaces()["MiniDiffViz"]
-
-  local hl = "@comment"
   if ns then
     local extmarks = vim.api.nvim_buf_get_extmarks(
       0,
@@ -47,13 +33,26 @@ local function git()
       { vim.v.lnum - 1, 0 },
       { details = true }
     )
-
     if #extmarks > 0 then
-      hl = extmarks[1][4].sign_hl_group
+      return extmarks[1][4].sign_hl_group
     end
   end
+end
 
-  return "%#" .. hl .. "# ▏%*"
+local function numbers()
+  if vim.v.virtnum > 0 then
+    return ""
+  end
+
+  if vim.v.relnum ~= 0 then
+    return "%#" .. (diff_highlight() or "LineNr") .. "#" .. ("%02d"):format(vim.v.relnum) .. "%*"
+  end
+
+  return "%#CursorLineNr#" .. ("%02d"):format(vim.v.lnum) .. "%*"
+end
+
+local function git()
+  return "%#" .. (diff_highlight() or "LineNr") .. "# ▏%*"
 end
 
 function Statuscolumn()
