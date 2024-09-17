@@ -4,34 +4,6 @@ end
 
 vim.g.loaded_plugin_statusline = 1
 
-for name, hl in pairs {
-  StatusLineNormal = { bg = "#E8D4B0", fg = "#28304D", bold = true },
-  StatusLineNormalSeparator = { fg = "#E8D4B0" },
-  StatusLineVisual = { bg = "#FBC19D", fg = "#28304D", bold = true },
-  StatusLineVisualSeparator = { fg = "#FBC19D" },
-  StatusLineSelect = { bg = "#FBC19D", fg = "#28304D", bold = true },
-  StatusLineSelectSeparator = { fg = "#FBC19D" },
-  StatusLineInsert = { bg = "#B5E8B0", fg = "#28304D", bold = true },
-  StatusLineInsertSeparator = { fg = "#B5E8B0" },
-  StatusLineReplace = { bg = "#28304D", fg = "#9CA3AF", bold = true },
-  StatusLineReplaceSeparator = { fg = "#28304D" },
-  StatusLineCommand = { bg = "#A5B4FC", fg = "#28304D", bold = true },
-  StatusLineCommandSeparator = { fg = "#A5B4FC" },
-  StatusLineConfirm = { bg = "#BF7471", fg = "#28304D", bold = true },
-  StatusLineConfirmSeparator = { fg = "#BF7471" },
-  StatusLineTerminal = { bg = "#E8D4B0", fg = "#28304D", bold = true },
-  StatusLineTerminalSeparator = { fg = "#E8D4B0" },
-  StatusLineGitHead = { fg = "#A5B4FC" },
-  StatusLineFormatOn = { fg = "#98BC99" },
-  StatusLineFormatOff = { fg = "#BF7471" },
-  StatusLineClients = { bold = true },
-  StatusLineDiffAdd = { fg = vim.g.colors.green },
-  StatusLineDiffDelete = { fg = vim.g.colors.red },
-  StatusLineDiffChange = { fg = vim.g.colors.blue },
-} do
-  vim.api.nvim_set_hl(0, name, hl)
-end
-
 local mode_mapping = {
   n = { text = "NORMAL", hl = "StatusLineNormal" },
   v = { text = "VISUAL", hl = "StatusLineVisual" },

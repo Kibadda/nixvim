@@ -15,9 +15,16 @@ local colors = {
   magenta = "#d3869b",
   cyan = "#89b482",
   white = "#d4be98",
+
   orange = "#e78a4e",
   grey = "#928374",
   darkgrey = "#4f5258",
+
+  bright_yellow = "#e8d4b0",
+  bright_orange = "#fbc19d",
+  bright_green = "#b5e8b0",
+  bright_blue = "#a5b4fc",
+  bright_red = "#bf7471",
 }
 
 vim.g.colors = colors
@@ -156,6 +163,35 @@ for name, hl in pairs {
   Added = { fg = colors.green },
   Removed = { fg = colors.red },
   Changed = { fg = colors.blue },
+
+  StatusLineNormal = { bg = colors.bright_yellow, fg = colors.black, bold = true },
+  StatusLineNormalSeparator = { fg = colors.bright_yellow },
+  StatusLineVisual = { bg = colors.bright_orange, fg = colors.black, bold = true },
+  StatusLineVisualSeparator = { fg = colors.bright_orange },
+  StatusLineSelect = { bg = colors.bright_orange, fg = colors.black, bold = true },
+  StatusLineSelectSeparator = { fg = colors.bright_orange },
+  StatusLineInsert = { bg = colors.bright_green, fg = colors.black, bold = true },
+  StatusLineInsertSeparator = { fg = colors.bright_green },
+  StatusLineReplace = { bg = colors.black, fg = colors.grey, bold = true },
+  StatusLineReplaceSeparator = { fg = colors.black },
+  StatusLineCommand = { bg = colors.bright_blue, fg = colors.black, bold = true },
+  StatusLineCommandSeparator = { fg = colors.bright_blue },
+  StatusLineConfirm = { bg = colors.bright_red, fg = colors.black, bold = true },
+  StatusLineConfirmSeparator = { fg = colors.bright_red },
+  StatusLineTerminal = { bg = colors.bright_yellow, fg = colors.black, bold = true },
+  StatusLineTerminalSeparator = { fg = colors.bright_yellow },
+  StatusLineGitHead = { fg = colors.bright_blue },
+  StatusLineFormatOn = { fg = colors.bright_green },
+  StatusLineFormatOff = { fg = colors.bright_red },
+  StatusLineClients = { bold = true },
+  StatusLineDiffAdd = { fg = colors.green },
+  StatusLineDiffDelete = { fg = colors.red },
+  StatusLineDiffChange = { fg = colors.blue },
+
+  WinBar = { fg = colors.grey },
+  WinBarNC = { fg = colors.grey },
+  WinBarFilename = { fg = colors.bright_blue },
+  WinBarModified = { fg = colors.red },
 } do
   vim.api.nvim_set_hl(0, name, hl)
 end
