@@ -52,7 +52,9 @@ local function git()
   if vim.g.git_head ~= "no git" then
     local diff_data = diff()
 
-    data.section = data.section .. diff_data.section
+    local git_status = require("git.status").status()
+
+    data.section = data.section .. diff_data.section .. "%*" .. (git_status ~= "" and " " or "") .. git_status
     data.length = data.length + diff_data.length
   end
 
