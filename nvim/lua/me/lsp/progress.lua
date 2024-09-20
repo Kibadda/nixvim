@@ -1,89 +1,54 @@
----@type table<integer, { win: integer, buf: integer, row: integer, client: vim.lsp.Client? }>
-local progress_windows = {}
-
-local function show_progress(win, buf, data)
-  local ttext = {}
-
-  local client
-  if not progress_windows[data.params.token] then
-    client = vim.lsp.get_client_by_id(data.client_id)
-  else
-    client = progress_windows[data.params.token].client
-  end
-
-  if data.params.token and client then
-    table.insert(ttext, client.name .. ":")
-  end
-
-  if data.params.value.title then
-    table.insert(ttext, data.params.value.title)
-  end
-
-  if data.params.value.percentage and data.params.value.percentage > 0 then
-    table.insert(ttext, ("(%s%%)"):format(data.params.value.percentage))
-  end
-
-  if data.params.value.message then
-    table.insert(ttext, data.params.value.message)
-  end
-
-  local text = table.concat(ttext, " ")
-  local text_width = string.len(text) + 4
-  local col = vim.o.columns - text_width
-
-  local row
-  if progress_windows[data.params.token] then
-    row = progress_windows[data.params.token].row
-  else
-    row = vim.tbl_count(progress_windows)
-  end
-
-  ---@type vim.api.keyset.win_config
-  local win_options = {
-    relative = "editor",
-    height = 1,
-    row = row,
-    col = col,
-    width = text_width,
-  }
-
-  if not win or not vim.api.nvim_win_is_valid(win) then
-    win = vim.api.nvim_open_win(buf, false, win_options)
-
-    progress_windows[data.params.token] = {
-      win = win,
-      buf = buf,
-      row = row,
-      client = client,
-    }
-  else
-    vim.api.nvim_win_set_config(win, win_options)
-  end
-
-  vim.api.nvim_buf_set_lines(buf, 0, -1, false, { text })
-end
-
+---@type table<number, { buf: number, win: number, row: number, client?: vim.lsp.Client }>
+local tokens = {}
 vim.api.nvim_create_autocmd("LspProgress", {
   group = vim.api.nvim_create_augroup("LspProgress", { clear = true }),
   callback = function(args)
     local token = args.data.params.token
 
-    if args.file == "begin" then
-      show_progress(nil, vim.api.nvim_create_buf(false, true), args.data)
-    elseif args.file == "report" then
-      if progress_windows[token] then
-        show_progress(progress_windows[token].win, progress_windows[token].buf, args.data)
-      end
-    elseif args.file == "end" then
-      if progress_windows[token] then
-        vim.api.nvim_win_close(progress_windows[token].win, false)
-        local row = progress_windows[token].row
-        progress_windows[token] = nil
-        for _, r in pairs(progress_windows) do
-          if r.row < row then
-            r.row = r.row - 1
-          end
+    if args.file == "end" then
+      vim.api.nvim_win_close(tokens[token].win, true)
+      for _, t in pairs(tokens) do
+        if t.row > tokens[token].row then
+          t.row = t.row - 1
         end
+      end
+      tokens[token] = nil
+    else
+      if not tokens[token] then
+        tokens[token] = {
+          buf = vim.api.nvim_create_buf(false, true),
+          row = vim.tbl_count(tokens),
+          client = vim.lsp.get_client_by_id(args.data.client_id),
+        }
+      end
+
+      local text = table.concat(
+        vim.tbl_filter(function(part)
+          return part and part ~= ""
+        end, {
+          tokens[token].client and tokens[token].client.name .. ":",
+          args.data.params.value.title,
+          args.data.params.value.percentage and string.format("(%s%%)", args.data.params.value.percentage),
+          args.data.params.value.message,
+        }),
+        " "
+      )
+
+      local config = {
+        relative = "editor",
+        height = 1,
+        row = tokens[token].row,
+        col = vim.o.columns - #text,
+        width = #text,
+        style = "minimal",
+      }
+
+      vim.api.nvim_buf_set_lines(tokens[token].buf, 0, -1, false, { text })
+
+      if not tokens[token].win then
+        tokens[token].win = vim.api.nvim_open_win(tokens[token].buf, false, config)
+      else
+        vim.api.nvim_win_set_config(tokens[token].win, config)
       end
     end
   end,
