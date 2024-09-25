@@ -4,6 +4,14 @@ end
 
 vim.g.loaded_plugin_git_diff = 1
 
+vim.g.git = {
+  extra = {
+    uncommit = {
+      cmd = { "uncommit" },
+    },
+  },
+}
+
 local running = false
 
 local function buf_set_git(buf, git)
