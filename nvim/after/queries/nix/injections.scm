@@ -7,7 +7,6 @@
   )
   (indented_string_expression
     (string_fragment) @injection.content
-    (#set! injection.combined)
   )
 
   (#eq? @_text "text")
@@ -25,7 +24,6 @@
         )
         (indented_string_expression
           (string_fragment) @injection.content
-          (#set! injection.combined)
         )
       )
     )

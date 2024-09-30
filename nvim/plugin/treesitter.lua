@@ -26,6 +26,7 @@ local parsers = {
   "typescript",
   "c",
   "nix",
+  "yaml",
 
   {
     name = "smarty",
