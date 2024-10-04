@@ -54,7 +54,12 @@
     initLua =
       ''
         vim.loader.enable()
-        vim.opt.rtp:prepend('${nvimRtp}/lib')
+        vim.opt.rtp = {
+          "${nvimRtp}/lib",
+          vim.fn.stdpath("data") .. "/site",
+          vim.env.VIMRUNTIME,
+          vim.fn.fnamemodify(vim.v.progpath, ":p:h:h") .. "/lib/nvim"
+        }
       ''
       + ""
       + (builtins.readFile ../nvim/init.lua)
