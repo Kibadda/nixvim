@@ -30,32 +30,43 @@ local function mode()
 end
 
 local function git()
-  local function diff()
-    local status = vim.b.git or {}
+  local _git = require "git.status"
+  local branch = _git.branch()
 
-    local added = status.added or 0
-    local removed = status.removed or 0
-    local changed = status.changed or 0
-
-    return {
-      section = " %#Added#+" .. added .. "%#Removed#-" .. removed .. "%#Changed#~" .. changed,
-      length = tostring(added):len() + tostring(removed):len() + tostring(changed):len() + 3,
-    }
+  local only_branch = false
+  if branch == "" then
+    branch = "no git"
+    only_branch = true
   end
 
   local data = {
-    section = "%#StatusLineGitHead# " .. vim.g.git_head,
-    length = #vim.g.git_head + 5,
+    section = "%#StatusLineGitHead# " .. branch,
+    length = #branch + 5,
     priority = 5,
   }
 
-  if vim.g.git_head ~= "no git" then
-    local diff_data = diff()
+  if not only_branch then
+    local diff = _git.diff()
 
-    local git_status = require("git.status").status()
+    data.section = data.section
+      .. " %#Added#+"
+      .. diff.added
+      .. "%#Removed#-"
+      .. diff.removed
+      .. "%#Changed#~"
+      .. diff.changed
+      .. "%*"
+    data.length = data.length
+      + tostring(diff.added):len()
+      + tostring(diff.removed):len()
+      + tostring(diff.changed):len()
+      + 3
 
-    data.section = data.section .. diff_data.section .. "%*" .. (git_status ~= "" and " " or "") .. git_status
-    data.length = data.length + diff_data.length
+    local merge = _git.merge_status()
+    if merge ~= "" then
+      data.section = data.section .. " " .. merge
+      data.length = data.length + merge:len() + 1
+    end
   end
 
   data.section = data.section .. " %#" .. mode_mapping[vim.fn.mode()].hl .. "Separator#%* "
