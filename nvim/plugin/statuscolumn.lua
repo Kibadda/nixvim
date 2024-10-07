@@ -34,7 +34,7 @@ local function diff_highlight()
       { details = true }
     )
     if #extmarks > 0 then
-      return extmarks[1][4].sign_hl_group
+      return extmarks[1][4].number_hl_group
     end
   end
 end
