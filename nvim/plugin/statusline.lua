@@ -33,19 +33,13 @@ local function git()
   local _git = require "git.status"
   local branch = _git.branch()
 
-  local only_branch = false
-  if branch == "" then
-    branch = "no git"
-    only_branch = true
-  end
-
   local data = {
     section = "%#StatusLineGitHead# " .. branch,
     length = #branch + 5,
     priority = 5,
   }
 
-  if not only_branch then
+  if branch ~= "no git" then
     local diff = _git.diff()
 
     data.section = data.section
