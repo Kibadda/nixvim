@@ -59,7 +59,6 @@ vim.keymap.set("n", "<Leader>sg", "<Cmd>Pick grep_live<CR>", { desc = "Live Grep
 vim.keymap.set("n", "<Leader>sh", "<Cmd>Pick help<CR>", { desc = "Help" })
 vim.keymap.set("n", "<Leader>sr", "<Cmd>Pick resume<CR>", { desc = "Resume" })
 vim.keymap.set("n", "<Leader>sb", "<Cmd>Pick buf_lines<CR>", { desc = "Lines" })
-vim.keymap.set("i", "<M-e>", "<Cmd>Pick emoji<CR>", { desc = "Emoji" })
 
 local minipick_start = pick.start
 ---@diagnostic disable-next-line:duplicate-set-field
@@ -135,30 +134,6 @@ function pick.registry.lsp(opts)
       end,
       choose = function(item)
         pick.default_choose(item)
-      end,
-    },
-  }
-end
-
-function pick.registry.emoji()
-  local emojis = require "me.data.emoji"
-
-  for _, r in ipairs(emojis) do
-    r.text = r[1] .. " " .. r[2]
-  end
-
-  local buf = vim.api.nvim_get_current_buf()
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-  pick.start {
-    source = {
-      name = "Emoji",
-      items = emojis,
-      show = function(bufnr, items, query)
-        pick.default_show(bufnr, items, query, { show_icons = true })
-      end,
-      choose = function(item)
-        vim.api.nvim_buf_set_text(buf, row - 1, col, row - 1, col, { item[1] })
       end,
     },
   }
