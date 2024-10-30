@@ -58,7 +58,7 @@ autocmd("LspAttach", {
       if #opts.items == 0 then
         vim.notify("No location found", vim.log.levels.WARN)
       elseif #opts.items == 1 then
-        vim.lsp.util.jump_to_location(opts.items[1].user_data, client.offset_encoding)
+        vim.lsp.util.show_document(opts.items[1].user_data, client.offset_encoding)
       else
         require("mini.pick").registry.lsp {
           title = "Lsp " .. vim.split(opts.title, " ")[1],
