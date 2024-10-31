@@ -38,6 +38,10 @@
       url = "github:Kibadda/starter.nvim";
       flake = false;
     };
+    snippets-nvim = {
+      url = "github:Kibadda/snippets.nvim";
+      flake = false;
+    };
 
     vim-pasta = {
       url = "github:ku1ik/vim-pasta";

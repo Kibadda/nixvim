@@ -126,6 +126,7 @@
     session-nvim
     kanban-nvim
     starter-nvim
+    snippets-nvim
   ]);
 
   nvim-dev = mkNeovim {
@@ -147,6 +148,10 @@
       {
         name = "starter.nvim";
         url = "git@github.com:Kibadda/starter.nvim";
+      }
+      {
+        name = "snippets.nvim";
+        url = "git@github.com:Kibadda/snippets.nvim";
       }
     ];
   };

@@ -641,6 +641,7 @@
         "nvim-web-devicons": "nvim-web-devicons",
         "plenary": "plenary",
         "session-nvim": "session-nvim",
+        "snippets-nvim": "snippets-nvim",
         "starter-nvim": "starter-nvim",
         "treesj": "treesj",
         "vim-pasta": "vim-pasta"
@@ -659,6 +660,22 @@
       "original": {
         "owner": "Kibadda",
         "repo": "session.nvim",
+        "type": "github"
+      }
+    },
+    "snippets-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730362309,
+        "narHash": "sha256-rq7rIIEuwKg9uebBKr8sEVPZhvRy+TPrUg2aMrH357k=",
+        "owner": "Kibadda",
+        "repo": "snippets.nvim",
+        "rev": "79298b280c166e71d96e618a7b625979f837f37b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kibadda",
+        "repo": "snippets.nvim",
         "type": "github"
       }
     },
