@@ -38,8 +38,8 @@
       url = "github:Kibadda/starter.nvim";
       flake = false;
     };
-    snippets-nvim = {
-      url = "github:Kibadda/snippets.nvim";
+    fake-nvim = {
+      url = "github:Kibadda/fake.nvim";
       flake = false;
     };
 

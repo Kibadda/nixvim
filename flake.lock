@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "fake-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1730386058,
+        "narHash": "sha256-Ua9HWlrdBGcuH5WYmv17fsfu0qhL2+XhOGxskfGf0y4=",
+        "owner": "Kibadda",
+        "repo": "fake.nvim",
+        "rev": "3218615668ae601489bd2afbcfa8f5788805f6ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kibadda",
+        "repo": "fake.nvim",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -623,6 +639,7 @@
     "root": {
       "inputs": {
         "conform-nvim": "conform-nvim",
+        "fake-nvim": "fake-nvim",
         "flake-utils": "flake-utils",
         "gen-luarc": "gen-luarc",
         "git-nvim": "git-nvim",
@@ -641,7 +658,6 @@
         "nvim-web-devicons": "nvim-web-devicons",
         "plenary": "plenary",
         "session-nvim": "session-nvim",
-        "snippets-nvim": "snippets-nvim",
         "starter-nvim": "starter-nvim",
         "treesj": "treesj",
         "vim-pasta": "vim-pasta"
@@ -660,22 +676,6 @@
       "original": {
         "owner": "Kibadda",
         "repo": "session.nvim",
-        "type": "github"
-      }
-    },
-    "snippets-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1730386058,
-        "narHash": "sha256-Ua9HWlrdBGcuH5WYmv17fsfu0qhL2+XhOGxskfGf0y4=",
-        "owner": "Kibadda",
-        "repo": "snippets.nvim",
-        "rev": "3218615668ae601489bd2afbcfa8f5788805f6ae",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Kibadda",
-        "repo": "snippets.nvim",
         "type": "github"
       }
     },

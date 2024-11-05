@@ -22,7 +22,7 @@ in {
     session-nvim = mkNvimPlugin inputs.session-nvim "session.nvim";
     kanban-nvim = mkNvimPlugin inputs.kanban-nvim "kanban.nvim";
     starter-nvim = mkNvimPlugin inputs.starter-nvim "starter.nvim";
-    snippets-nvim = mkNvimPlugin inputs.snippets-nvim "snippets.nvim";
+    fake-nvim = mkNvimPlugin inputs.fake-nvim "fake.nvim";
     nvim-treesitter = mkNvimPlugin inputs.nvim-treesitter "nvim-treesitter";
     treesj = mkNvimPlugin inputs.treesj "treesj";
   };
