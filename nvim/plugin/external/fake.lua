@@ -97,4 +97,91 @@ vim.g.fake = {
       end,
     },
   },
+  commands = {
+    update_input = function(args)
+      vim.system(
+        {
+          "nix",
+          "flake",
+          "update",
+          args.input,
+        },
+        nil,
+        function(out)
+          vim.schedule(function()
+            if out.stderr ~= "" then
+              vim.notify("error when updating input '" .. args.input .. "': " .. out.stderr, vim.log.levels.ERROR)
+            else
+              vim.notify("updated input '" .. args.input .. "'", vim.log.levels.WARN)
+            end
+          end)
+        end
+      )
+    end,
+  },
+  codeactions = {
+    {
+      enabled = function(buf)
+        return vim.bo[buf].filetype == "nix" and vim.uri_from_bufnr(buf):match "flake%.nix"
+      end,
+      codeactions = function(buf)
+        local parser = vim.treesitter.get_parser(buf, "nix")
+
+        if not parser then
+          return
+        end
+
+        local query = vim.treesitter.query.parse(
+          "nix",
+          [[
+            (binding
+              (attrpath
+                (identifier) @_inputs
+                (#eq? @_inputs "inputs")
+              )
+              (attrset_expression
+                (binding_set
+                  (binding
+                    (attrpath
+                      .
+                      (identifier) @input)
+                    )
+                  )
+                )
+              )
+          ]]
+        )
+
+        local inputs = {}
+
+        for _, match in query:iter_matches(parser:trees()[1]:root(), buf, 0, -1) do
+          for id, nodes in pairs(match) do
+            local name = query.captures[id]
+            if name == "input" then
+              for _, node in ipairs(nodes) do
+                local input = vim.treesitter.get_node_text(node, buf)
+
+                ---@type lsp.CodeAction
+                local action = {
+                  title = "update input '" .. input .. "'",
+                  command = {
+                    title = "update input",
+                    command = "update_input",
+                    arguments = {
+                      input = input,
+                      uri = vim.uri_from_bufnr(buf),
+                    },
+                  },
+                }
+
+                table.insert(inputs, action)
+              end
+            end
+          end
+        end
+
+        return inputs
+      end,
+    },
+  },
 }
