@@ -4,6 +4,10 @@ end
 
 vim.g.loaded_plugin_winbar = 1
 
+local function zoomed()
+  return vim.g.is_zoomed == 1 and " %#WinBarZoomed#!%*" or ""
+end
+
 local function icon()
   local ok, devicons = pcall(require, "nvim-web-devicons")
 
@@ -46,7 +50,7 @@ function Winbar()
     return ""
   end
 
-  return (" %s%s:%%L%s"):format(icon(), filepath(path), modified())
+  return ("%s %s%s:%%L%s"):format(zoomed(), icon(), filepath(path), modified())
 end
 
 vim.o.winbar = "%{%v:lua.Winbar()%}"

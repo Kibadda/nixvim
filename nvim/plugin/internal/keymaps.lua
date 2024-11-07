@@ -71,3 +71,12 @@ map({ "i", "s" }, "<C-l>", snippet(1))
 map({ "i", "s" }, "<C-h>", snippet(-1))
 map({ "n", "v", "x" }, "<Leader>y", '"+y', "Yank to clipboard")
 map({ "n", "v", "x" }, "<Leader>p", '"+p', "Paste from clipboard")
+map("n", "ZZ", function()
+  if vim.g.is_zoomed == 1 then
+    vim.g.is_zoomed = 0
+    vim.cmd.tabclose()
+  else
+    vim.g.is_zoomed = 1
+    vim.cmd.tabedit(vim.fn.expand "%")
+  end
+end, "Zoom current window")

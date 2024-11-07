@@ -192,6 +192,7 @@ for name, hl in
     WinBarNC = { fg = colors.grey },
     WinBarFilename = { fg = colors.bright_blue },
     WinBarModified = { fg = colors.red },
+    WinBarZoomed = { fg = colors.red },
   } --[[@as table<string, vim.api.keyset.highlight>]]
 do
   vim.api.nvim_set_hl(0, name, hl)
