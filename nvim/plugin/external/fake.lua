@@ -36,7 +36,7 @@ vim.g.fake = {
         local parser = vim.treesitter.get_parser(buf, "nix")
 
         if not parser then
-          return
+          return {}
         end
 
         local query = vim.treesitter.query.parse(
@@ -99,24 +99,25 @@ vim.g.fake = {
   },
   commands = {
     update_input = function(args)
-      vim.system(
-        {
-          "nix",
-          "flake",
-          "update",
-          args.input,
-        },
-        nil,
-        function(out)
-          vim.schedule(function()
-            if out.stderr ~= "" then
-              vim.notify("error when updating input '" .. args.input .. "': " .. out.stderr, vim.log.levels.ERROR)
-            else
-              vim.notify("updated input '" .. args.input .. "'", vim.log.levels.WARN)
-            end
-          end)
-        end
-      )
+      if not args then
+        return
+      end
+
+      local cmd = { "nix", "flake", "update" }
+
+      if args.input then
+        table.insert(cmd, args.input)
+      end
+
+      vim.system(cmd, nil, function(out)
+        vim.schedule(function()
+          if out.stderr ~= "" then
+            vim.notify("error when updating input '" .. args.input .. "': " .. out.stderr, vim.log.levels.ERROR)
+          else
+            vim.notify("updated input '" .. args.input .. "'", vim.log.levels.WARN)
+          end
+        end)
+      end)
     end,
   },
   codeactions = {
@@ -128,7 +129,7 @@ vim.g.fake = {
         local parser = vim.treesitter.get_parser(buf, "nix")
 
         if not parser then
-          return
+          return {}
         end
 
         local query = vim.treesitter.query.parse(
@@ -152,7 +153,17 @@ vim.g.fake = {
           ]]
         )
 
-        local inputs = {}
+        ---@type lsp.CodeAction[]
+        local inputs = {
+          {
+            title = "update all inputs",
+            command = {
+              title = "update all inputs",
+              command = "update_input",
+              arguments = {},
+            },
+          },
+        }
 
         for _, match in query:iter_matches(parser:trees()[1]:root(), buf, 0, -1) do
           for id, nodes in pairs(match) do
@@ -169,7 +180,6 @@ vim.g.fake = {
                     command = "update_input",
                     arguments = {
                       input = input,
-                      uri = vim.uri_from_bufnr(buf),
                     },
                   },
                 }
