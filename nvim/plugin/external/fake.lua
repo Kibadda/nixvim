@@ -103,16 +103,21 @@ vim.g.fake = {
         return
       end
 
-      local cmd = { "nix", "flake", "update" }
+      local cmd = { "nix", "flake" }
 
       if args.input then
-        table.insert(cmd, args.input)
+        vim.list_extend(cmd, { "lock", "--update-input", args.input })
+      else
+        vim.list_extend(cmd, { "update" })
       end
 
       vim.system(cmd, nil, function(out)
         vim.schedule(function()
-          if out.stderr ~= "" then
-            vim.notify("error when updating input '" .. args.input .. "': " .. out.stderr, vim.log.levels.ERROR)
+          if out.code ~= 0 then
+            vim.notify(
+              "error when updating input '" .. args.input .. "': " .. (out.stderr or "n/a"),
+              vim.log.levels.ERROR
+            )
           else
             vim.notify("updated input '" .. args.input .. "'", vim.log.levels.WARN)
           end
