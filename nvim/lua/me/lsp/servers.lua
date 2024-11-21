@@ -126,6 +126,14 @@ local servers = {
       cmd = { "nil" },
     },
   },
+
+  {
+    filetypes = { "rust" },
+    root_markers = { "Cargo.toml" },
+    config = {
+      cmd = { "rust-analyzer" },
+    },
+  },
 }
 
 for _, server in ipairs(servers) do
