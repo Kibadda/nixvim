@@ -132,6 +132,9 @@ local servers = {
     root_markers = { "Cargo.toml" },
     config = {
       cmd = { "rust-analyzer" },
+      settings = {
+        checkOnSave = false,
+      },
     },
   },
 }
