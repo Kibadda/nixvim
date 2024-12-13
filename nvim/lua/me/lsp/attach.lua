@@ -83,7 +83,7 @@ autocmd("LspAttach", {
         method = methods.textDocument_definition,
         lhs = "gD",
         rhs = function()
-          local params = vim.lsp.util.make_position_params()
+          local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
           vim.lsp.buf_request(bufnr, vim.lsp.protocol.Methods.textDocument_definition, params, function(_, result)
             if not result or vim.tbl_isempty(result) then
               return nil
@@ -302,7 +302,7 @@ autocmd("LspAttach", {
     }
 
     for _, mapping in ipairs(maps) do
-      if not mapping.method or client.supports_method(mapping.method) then
+      if not mapping.method or client:supports_method(mapping.method) then
         if mapping.lhs then
           vim.keymap.set(mapping.mode or "n", mapping.lhs, mapping.rhs, {
             buffer = bufnr,
