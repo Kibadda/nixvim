@@ -26,4 +26,9 @@ vim.diagnostic.config {
 
 require "me.lsp.attach"
 require "me.lsp.progress"
-require "me.lsp.servers"
+
+vim.lsp.enable "lua-language-server"
+vim.lsp.enable "nil"
+vim.lsp.enable "intelephense"
+vim.lsp.enable "typescript-language-server"
+vim.lsp.enable "rust-analyzer"
