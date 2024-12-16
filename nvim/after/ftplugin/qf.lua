@@ -1,2 +1,2 @@
 vim.cmd [[packadd cfilter]]
-vim.wo.statusline = "%{%v:lua.require'me.statusline'()%}"
+vim.wo.statusline = "%{%v:lua.Statusline()%}"
