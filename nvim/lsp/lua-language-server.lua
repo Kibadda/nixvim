@@ -1,6 +1,6 @@
 vim.lsp.config["lua-language-server"] = {
   cmd = { "lua-language-server" },
-  root_markers = { ".luarc.json", "stylua.toml", ".stylua.toml" },
+  root_markers = { ".luarc.json", "stylua.toml", ".stylua.toml", "lua/" },
   filetypes = { "lua" },
   before_init = function(params, config)
     if not params.rootPath or type(params.rootPath) ~= "string" then
