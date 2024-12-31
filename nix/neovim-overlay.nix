@@ -93,8 +93,33 @@
       ++ (optional (extraPackages != [])
         ''--prefix PATH : "${makeBinPath extraPackages}"'')
     );
+
+    excludeFiles = [
+      "indent.vim"
+      "menu.vim"
+      "mswin.vim"
+      "plugin/matchit.vim"
+      "plugin/matchparen.vim"
+      "plugin/rplugin.vim"
+      "plugin/shada.vim"
+      "plugin/tohtml.lua"
+      "plugin/tutor.vim"
+      "plugin/gzip.vim"
+      "plugin/tarPlugin.vim"
+      "plugin/zipPlugin.vim"
+      "plugin/netrwPlugin.vim"
+    ];
+
+    postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludeFiles;
+
+    nvim-unwrapped = prev.neovim.overrideAttrs (oa: {
+      postInstall = ''
+        ${oa.postInstall or ""}
+        ${concatStringsSep "\n" postInstallCommands}
+      '';
+    });
   in
-    final.wrapNeovimUnstable final.neovim-nightly (neovimConfig
+    final.wrapNeovimUnstable nvim-unwrapped (neovimConfig
       // {
         luaRcContent = initLua;
         wrapperArgs =
@@ -162,7 +187,7 @@
 
   luarc-json = final.mk-luarc-json {
     plugins = all-plugins;
-    nvim = final.neovim-nightly;
+    nvim = final.neovim;
   };
 in {
   inherit nvim-dev nvim-pkg luarc-json;
