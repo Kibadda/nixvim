@@ -4,7 +4,10 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    neovim-nightly.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -109,9 +112,7 @@
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
-          (final: prev: {
-            neovim-nightly = neovim-nightly.packages.${prev.system}.neovim;
-          })
+          neovim-nightly.overlays.default
           gen-luarc.overlays.default
           plugin-overlay
           neovim-overlay
