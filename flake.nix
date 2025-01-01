@@ -4,9 +4,16 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    neovim-src = {
+      url = "github:neovim/neovim";
+      flake = false;
+    };
     neovim-nightly = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        neovim-src.follows = "neovim-src";
+      };
     };
     gen-luarc.url = "github:mrcjkb/nix-gen-luarc-json";
     flake-utils.url = "github:numtide/flake-utils";
