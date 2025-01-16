@@ -193,6 +193,9 @@ for name, hl in
     WinBarFilename = { fg = colors.bright_blue },
     WinBarModified = { fg = colors.red },
     WinBarZoomed = { fg = colors.red },
+
+    HipatternsTodo = { link = "DiagnosticInfo" },
+    HipatternsCrtx = { link = "DiagnosticWarn" },
   } --[[@as table<string, vim.api.keyset.highlight>]]
 do
   vim.api.nvim_set_hl(0, name, hl)
