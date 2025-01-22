@@ -65,6 +65,8 @@ vim.g.fake = {
 
       local urls = {}
 
+      parser:parse()
+
       for _, match in query:iter_matches(parser:trees()[1]:root(), buf, 0, -1) do
         for id, nodes in pairs(match) do
           local name = query.captures[id]
@@ -128,6 +130,8 @@ vim.g.fake = {
       if not query then
         return inputs
       end
+
+      parser:parse()
 
       for _, match in query:iter_matches(parser:trees()[1]:root(), buf, 0, -1) do
         for id, nodes in pairs(match) do
