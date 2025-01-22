@@ -1,5 +1,6 @@
 ---@type table<number, { buf: number, win: number, row: number, client?: vim.lsp.Client }>
 local tokens = {}
+local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 vim.api.nvim_create_autocmd("LspProgress", {
   group = vim.api.nvim_create_augroup("LspProgress", { clear = true }),
   callback = function(args)
@@ -30,6 +31,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
           args.data.params.value.title,
           args.data.params.value.percentage and string.format("(%s%%)", args.data.params.value.percentage),
           args.data.params.value.message,
+          spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1],
         }),
         " "
       )
