@@ -1,8 +1,14 @@
 { inputs }: final: prev: let
   mkNvimPlugin = src: pname:
-    prev.pkgs.vimUtils.buildVimPlugin {
+    (prev.pkgs.vimUtils.buildVimPlugin {
       inherit pname src;
       version = src.lastModifiedDate;
+    }).overrideAttrs {
+      # TODO: this is just a quick fix so I can update nixpkgs input
+      # new nixpkgs introduced automatic require check for all lua files in plugin
+      # but this check uses nvim version 0.10.3
+      # I could not find out how this check can use the nvim binary from the neovim-nighlty-overlay
+      doCheck = false;
     };
 in {
   nvimPlugins = {
