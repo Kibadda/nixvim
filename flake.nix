@@ -32,26 +32,11 @@
       flake = false;
     };
 
-    git-nvim = {
-      url = "github:Kibadda/git.nvim";
-      flake = false;
-    };
-    session-nvim = {
-      url = "github:Kibadda/session.nvim";
-      flake = false;
-    };
-    kanban-nvim = {
-      url = "github:Kibadda/kanban.nvim";
-      flake = false;
-    };
-    starter-nvim = {
-      url = "github:Kibadda/starter.nvim";
-      flake = false;
-    };
-    fake-nvim = {
-      url = "github:Kibadda/fake.nvim";
-      flake = false;
-    };
+    git-nvim.url = "github:Kibadda/git.nvim";
+    session-nvim.url = "github:Kibadda/session.nvim";
+    kanban-nvim.url = "github:Kibadda/kanban.nvim";
+    starter-nvim.url = "github:Kibadda/starter.nvim";
+    fake-nvim.url = "github:Kibadda/fake.nvim";
 
     vim-pasta = {
       url = "github:ku1ik/vim-pasta";
@@ -123,6 +108,11 @@
           gen-luarc.overlays.default
           plugin-overlay
           neovim-overlay
+          inputs.fake-nvim.overlays.default
+          inputs.git-nvim.overlays.default
+          inputs.kanban-nvim.overlays.default
+          inputs.session-nvim.overlays.default
+          inputs.starter-nvim.overlays.default
         ];
         config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
           "intelephense"

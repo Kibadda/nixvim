@@ -133,7 +133,7 @@
     treesj
   ];
 
-  all-plugins = base-plugins ++ (with final.nvimPlugins; [
+  all-plugins = base-plugins ++ (with final; [
     git-nvim
     session-nvim
     kanban-nvim
