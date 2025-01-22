@@ -118,8 +118,6 @@
 
   base-plugins = with final.nvimPlugins; [
     nvim-web-devicons
-    plenary
-    nui-nvim
     vim-pasta
     nvim-surround
     nvim-autopairs
@@ -156,6 +154,10 @@
       {
         name = "kanban.nvim";
         url = "git@github.com:Kibadda/kanban.nvim";
+      }
+      {
+        name = "plenary.nvim";
+        url = "git@github.com:nvim-lua/plenary.nvim";
       }
       {
         name = "starter.nvim";

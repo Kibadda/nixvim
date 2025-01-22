@@ -23,14 +23,6 @@
       url = "github:nvim-tree/nvim-web-devicons";
       flake = false;
     };
-    plenary = {
-      url = "github:nvim-lua/plenary.nvim";
-      flake = false;
-    };
-    nui-nvim = {
-      url = "github:MunifTanjim/nui.nvim";
-      flake = false;
-    };
 
     git-nvim.url = "github:Kibadda/git.nvim";
     session-nvim.url = "github:Kibadda/session.nvim";
