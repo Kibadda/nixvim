@@ -62,3 +62,63 @@ end, {
   nargs = 0,
   desc = "Bwipeout",
 })
+
+vim.api.nvim_create_user_command("Rename", function()
+  local function real(path)
+    return vim.fs.normalize(vim.uv.fs_realpath(path) or path)
+  end
+  local buf = vim.api.nvim_get_current_buf()
+  local old = assert(real(vim.api.nvim_buf_get_name(buf)))
+  local root = assert(real(vim.uv.cwd() or "."))
+
+  if old:find(root, 1, true) ~= 1 then
+    root = vim.fn.fnamemodify(old, ":p:h")
+  end
+
+  local extra = old:sub(#root + 2)
+
+  vim.ui.input({
+    prompt = "New filename: ",
+    default = extra,
+    completion = file,
+  }, function(new)
+    if not new or new == "" or new == extra then
+      return
+    end
+
+    new = vim.fs.normalize(root .. "/" .. new)
+    vim.fn.mkdir(vim.fs.dirname(new), "p")
+    local changes = {
+      files = {
+        {
+          oldUri = vim.uri_from_fname(old),
+          newUri = vim.uri_from_fname(new),
+        },
+      },
+    }
+
+    local clients = vim.lsp.get_clients()
+    for _, client in ipairs(clients) do
+      if client:supports_method(vim.lsp.protocol.Methods.workspace_willRenameFiles) then
+        local response = client:request_sync(vim.lsp.protocol.Methods.workspace_willRenameFiles, changes, 1000, 0)
+        if response and response.result then
+          vim.lsp.util.apply_workspace_edit(response.result, client.offset_encoding)
+        end
+      end
+    end
+
+    vim.fn.rename(old, new)
+    vim.cmd.edit(new)
+    vim.api.nvim_buf_delete(buf, { force = true })
+    vim.fn.delete(old)
+
+    for _, client in ipairs(clients) do
+      if client:supports_method(vim.lsp.protocol.Methods.workspace_didRenameFiles) then
+        client:notify(vim.lsp.protocol.Methods.workspace_didRenameFiles, changes)
+      end
+    end
+  end)
+end, {
+  nargs = 0,
+  desc = "Rename file",
+})
