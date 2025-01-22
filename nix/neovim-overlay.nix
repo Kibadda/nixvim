@@ -1,25 +1,12 @@
-{ inputs }: final: prev: with final.lib; let
+{ inputs }: final: prev: let
   mkNeovim = { appName ? null, plugins ? [], devPlugins ? [] }: let
-    defaultPlugin = {
-      plugin = null;
-      config = null;
-      optional = false;
-      runtime = {};
-    };
-
-    normalizedPlugins = map (x: defaultPlugin // (
-      if x ? plugin
-      then x
-      else { plugin = x; }
-    )) plugins;
-
     neovimConfig = final.neovimUtils.makeNeovimConfig {
       withPython3 = false;
       withRuby = false;
       withNodeJs = false;
       viAlias = appName == null || appName == "nvim";
       vimAlias = appName == null || appName == "nvim";
-      plugins = normalizedPlugins;
+      plugins = final.neovimUtils.normalizePlugins plugins;
     };
 
     extraPackages = with final; [
@@ -64,13 +51,13 @@
       + ""
       + (builtins.readFile ../nvim/init.lua)
       + ""
-      + optionalString (devPlugins != []) (
+      + final.lib.optionalString (devPlugins != []) (
         ''
           local dev_pack_path = vim.fn.stdpath('data') .. '/site/pack/dev'
           local dev_plugins_dir = dev_pack_path .. '/opt'
           local dev_plugin_path
         ''
-        + strings.concatMapStringsSep
+        + final.lib.strings.concatMapStringsSep
         "\n"
         (plugin: ''
           dev_plugin_path = dev_plugins_dir .. '/${plugin.name}'
@@ -88,10 +75,10 @@
       '';
 
     extraMakeWrapperArgs = builtins.concatStringsSep " " (
-      (optional (appName != "nvim" && appName != null && appName != "")
+      (final.lib.optional (appName != "nvim" && appName != null && appName != "")
         ''--set NVIM_APPNAME "${appName}"'')
-      ++ (optional (extraPackages != [])
-        ''--prefix PATH : "${makeBinPath extraPackages}"'')
+      ++ (final.lib.optional (extraPackages != [])
+        ''--prefix PATH : "${final.lib.makeBinPath extraPackages}"'')
     );
 
     excludeFiles = [
@@ -112,18 +99,18 @@
 
     postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludeFiles;
 
-    nvim-unwrapped = prev.neovim.overrideAttrs (oa: {
+    neovim-unwrapped = prev.neovim.overrideAttrs (oa: {
       postInstall = ''
         ${oa.postInstall or ""}
-        ${concatStringsSep "\n" postInstallCommands}
+        ${final.lib.concatStringsSep "\n" postInstallCommands}
       '';
     });
   in
-    final.wrapNeovimUnstable nvim-unwrapped (neovimConfig
+    final.wrapNeovimUnstable neovim-unwrapped (neovimConfig
       // {
         luaRcContent = initLua;
         wrapperArgs =
-          escapeShellArgs neovimConfig.wrapperArgs
+          final.lib.escapeShellArgs neovimConfig.wrapperArgs
           + " "
           + extraMakeWrapperArgs;
         wrapRc = true;
