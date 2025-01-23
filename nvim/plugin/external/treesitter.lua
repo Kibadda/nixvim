@@ -27,6 +27,7 @@ local parsers = {
   "c",
   "nix",
   "yaml",
+  "bash",
 
   {
     name = "smarty",
