@@ -1,10 +1,14 @@
-{ inputs }: final: prev: let
-  mkNvimPlugin = src: pname:
+{ inputs }:
+final: prev:
+let
+  mkNvimPlugin =
+    src: pname:
     prev.pkgs.vimUtils.buildVimPlugin {
       inherit pname src;
       version = src.lastModifiedDate;
     };
-in {
+in
+{
   nvimPlugins = {
     nvim-web-devicons = mkNvimPlugin inputs.nvim-web-devicons "nvim-web-devicons";
     vim-pasta = mkNvimPlugin inputs.vim-pasta "vim-pasta";

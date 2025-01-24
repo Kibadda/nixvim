@@ -76,60 +76,68 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    neovim-nightly,
-    gen-luarc,
-    flake-utils,
-    ...
-  }: let
-    supportedSystems = [
-      "aarch64-linux"
-      "x86_64-linux"
-    ];
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      neovim-nightly,
+      gen-luarc,
+      flake-utils,
+      ...
+    }:
+    let
+      supportedSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
 
-    plugin-overlay = import ./nix/plugin-overlay.nix {inherit inputs;};
-    neovim-overlay = import ./nix/neovim-overlay.nix {inherit inputs;};
-  in
-    flake-utils.lib.eachSystem supportedSystems (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          neovim-nightly.overlays.default
-          gen-luarc.overlays.default
-          plugin-overlay
-          neovim-overlay
-          inputs.fake-nvim.overlays.default
-          inputs.git-nvim.overlays.default
-          inputs.kanban-nvim.overlays.default
-          inputs.session-nvim.overlays.default
-          inputs.starter-nvim.overlays.default
-        ];
-        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-          "intelephense"
-        ];
-      };
-      shell = pkgs.mkShell {
-        name = "nvim-devShell";
-        buildInputs = with pkgs; [
-          lua-language-server
-          nil
-        ];
-        shellHook = ''
-          ln -fs ${pkgs.luarc-json} nvim/.luarc.json
-        '';
-      };
-    in {
-      packages = rec {
-        default = nvim;
-        nvim = pkgs.nvim-pkg;
-        nvim-dev = pkgs.nvim-dev;
-      };
-      devShells = {
-        default = shell;
-      };
-    })
+      plugin-overlay = import ./nix/plugin-overlay.nix { inherit inputs; };
+      neovim-overlay = import ./nix/neovim-overlay.nix { inherit inputs; };
+    in
+    flake-utils.lib.eachSystem supportedSystems (
+      system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            neovim-nightly.overlays.default
+            gen-luarc.overlays.default
+            plugin-overlay
+            neovim-overlay
+            inputs.fake-nvim.overlays.default
+            inputs.git-nvim.overlays.default
+            inputs.kanban-nvim.overlays.default
+            inputs.session-nvim.overlays.default
+            inputs.starter-nvim.overlays.default
+          ];
+          config.allowUnfreePredicate =
+            pkg:
+            builtins.elem (nixpkgs.lib.getName pkg) [
+              "intelephense"
+            ];
+        };
+        shell = pkgs.mkShell {
+          name = "nvim-devShell";
+          buildInputs = with pkgs; [
+            lua-language-server
+            nil
+          ];
+          shellHook = ''
+            ln -fs ${pkgs.luarc-json} nvim/.luarc.json
+          '';
+        };
+      in
+      {
+        packages = rec {
+          default = nvim;
+          nvim = pkgs.nvim-pkg;
+          nvim-dev = pkgs.nvim-dev;
+        };
+        devShells = {
+          default = shell;
+        };
+      }
+    )
     // {
       overlays.default = neovim-overlay;
     };
