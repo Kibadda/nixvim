@@ -17,6 +17,7 @@
       stylua
       tree-sitter
       gcc
+      nixfmt-rfc-style
     ];
 
     nvimRtp = final.stdenv.mkDerivation {
