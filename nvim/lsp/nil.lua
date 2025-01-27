@@ -8,6 +8,7 @@ vim.lsp.config["nil"] = {
         command = { "nixfmt" },
       },
       flake = {
+        autoArchive = true,
         autoEvalInputs = true,
       },
     },
