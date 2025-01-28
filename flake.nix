@@ -5,7 +5,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     neovim-src = {
-      url = "github:neovim/neovim";
+      url = "github:neovim/neovim?ref=b288fa8d62c3f129d333d3ea6abc3234039cad37";
       flake = false;
     };
     neovim-nightly = {
