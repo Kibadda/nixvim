@@ -196,6 +196,7 @@ for name, hl in
 
     HipatternsTodo = { link = "DiagnosticInfo" },
     HipatternsCrtx = { link = "DiagnosticWarn" },
+    HipatternsFix = { link = "DiagnosticError" },
   } --[[@as table<string, vim.api.keyset.highlight>]]
 do
   vim.api.nvim_set_hl(0, name, hl)
