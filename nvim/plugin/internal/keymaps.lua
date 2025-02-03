@@ -71,6 +71,13 @@ map({ "i", "s" }, "<C-l>", snippet(1))
 map({ "i", "s" }, "<C-h>", snippet(-1))
 map({ "n", "v", "x" }, "<Leader>y", '"+y', "Yank to clipboard")
 map({ "n", "v", "x" }, "<Leader>p", '"+p', "Paste from clipboard")
+map("c", "/", function()
+  if vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) then
+    return vim.api.nvim_replace_termcodes("<C-c><Esc>/\\%V", true, false, true)
+  else
+    return "/"
+  end
+end, { expr = true })
 map("n", "ZZ", function()
   if vim.g.is_zoomed == 1 then
     vim.g.is_zoomed = 0
