@@ -30,6 +30,7 @@ vim.g.fake = {
         if args.input then
           vim.list_extend(cmd, { "lock", "--update-input", args.input })
         else
+          args.input = "all"
           vim.list_extend(cmd, { "update" })
         end
 
