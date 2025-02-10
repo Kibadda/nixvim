@@ -10,5 +10,8 @@ vim.g.git = {
     uncommit = {
       cmd = { "uncommit" },
     },
+    nah = {
+      cmd = { "nah" },
+    },
   },
 }
