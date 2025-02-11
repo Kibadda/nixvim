@@ -23,6 +23,12 @@ vim.diagnostic.config {
   },
 }
 
+vim.keymap.set("n", "<Leader>ld", function()
+  vim.diagnostic.config {
+    virtual_lines = not vim.diagnostic.config().virtual_lines and { current_line = true } or false,
+  }
+end)
+
 require "me.lsp.attach"
 require "me.lsp.progress"
 
