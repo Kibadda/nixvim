@@ -18,9 +18,6 @@ vim.diagnostic.config {
     severity = { min = vim.diagnostic.severity.WARN },
   },
   virtual_text = true,
-  virtual_lines = {
-    current_line = true,
-  },
 }
 
 vim.keymap.set("n", "<Leader>ld", function()
