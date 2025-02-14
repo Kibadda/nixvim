@@ -4,6 +4,7 @@ end
 
 vim.g.loaded_plugin_fake = 1
 
+---@type fake.config
 vim.g.fake = {
   {
     filetype = "php",
@@ -25,13 +26,12 @@ vim.g.fake = {
           return
         end
 
-        local cmd = { "nix", "flake" }
+        local cmd = { "nix", "flake", "update" }
 
         if args.input then
-          vim.list_extend(cmd, { "lock", "--update-input", args.input })
+          table.insert(cmd, args.input)
         else
           args.input = "all"
-          vim.list_extend(cmd, { "update" })
         end
 
         vim.system(cmd, nil, function(out)
@@ -52,17 +52,8 @@ vim.g.fake = {
   {
     filename = "flake.nix",
     codelenses = function(buf)
-      local parser = vim.treesitter.get_parser(buf, "nix")
-
-      if not parser then
-        return {}
-      end
-
-      local query = vim.treesitter.query.get("nix", "flake_input_url")
-
-      if not query then
-        return {}
-      end
+      local parser = assert(vim.treesitter.get_parser(buf, "nix"))
+      local query = assert(vim.treesitter.query.get("nix", "flake_input_url"))
 
       local urls = {}
 
@@ -120,17 +111,8 @@ vim.g.fake = {
         },
       }
 
-      local parser = vim.treesitter.get_parser(buf, "nix")
-
-      if not parser then
-        return inputs
-      end
-
-      local query = vim.treesitter.query.get("nix", "flake_input_name")
-
-      if not query then
-        return inputs
-      end
+      local parser = assert(vim.treesitter.get_parser(buf, "nix"))
+      local query = assert(vim.treesitter.query.get("nix", "flake_input_name"))
 
       parser:parse()
 
