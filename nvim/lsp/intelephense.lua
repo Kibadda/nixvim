@@ -9,6 +9,11 @@ vim.lsp.config.intelephense = {
       },
     },
   },
+  commands = {
+    ["editor.action.triggerParameterHints"] = function()
+      vim.lsp.buf.signature_help()
+    end,
+  },
   settings = {
     intelephense = {
       format = {
