@@ -37,5 +37,10 @@ in
       ];
     };
     treesj = mkNvimPlugin inputs.treesj "treesj";
+    flash-nvim = (mkNvimPlugin inputs.flash-nvim "flash.nvim").overrideAttrs {
+      nvimSkipModule = [
+        "flash.docs"
+      ];
+    };
   };
 }

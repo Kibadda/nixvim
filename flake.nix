@@ -74,6 +74,10 @@
       url = "github:Wansmer/treesj";
       flake = false;
     };
+    flash-nvim = {
+      url = "github:folke/flash.nvim";
+      flake = false;
+    };
   };
 
   outputs =

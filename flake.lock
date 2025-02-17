@@ -251,6 +251,22 @@
         "type": "github"
       }
     },
+    "flash-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739519195,
+        "narHash": "sha256-0WKr+fJtV7xTecxWJ8qUkq8NE818Vhyi/QSQ7CcVNPY=",
+        "owner": "folke",
+        "repo": "flash.nvim",
+        "rev": "3c942666f115e2811e959eabbdd361a025db8b63",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "flash.nvim",
+        "type": "github"
+      }
+    },
     "gen-luarc": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -790,6 +806,7 @@
         "conform-nvim": "conform-nvim",
         "fake-nvim": "fake-nvim",
         "flake-utils": "flake-utils_2",
+        "flash-nvim": "flash-nvim",
         "gen-luarc": "gen-luarc",
         "git-nvim": "git-nvim",
         "kanban-nvim": "kanban-nvim",

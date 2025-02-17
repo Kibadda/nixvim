@@ -136,6 +136,7 @@ let
     nvim-recorder
     nvim-treesitter
     treesj
+    flash-nvim
   ];
 
   all-plugins =
