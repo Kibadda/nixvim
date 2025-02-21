@@ -15,9 +15,6 @@ vim.g.kanban = {
         project = "GITLAB_PROJECT_URL",
         boardId = 50,
       },
-      initial_focus = function()
-        return ({ "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag" })[tonumber(os.date "%w")]
-      end,
     },
   },
 }

@@ -427,11 +427,11 @@
         "plenary-nvim": "plenary-nvim"
       },
       "locked": {
-        "lastModified": 1737539688,
-        "narHash": "sha256-+ruui7PMbm3EIuu5pQDZ9P18vw5L/b3kQTWHDjwmm/8=",
+        "lastModified": 1740123127,
+        "narHash": "sha256-W7c9T6AHGf0Y8MDhp26aEa/Q3xkD32REuy93QweRxpM=",
         "owner": "Kibadda",
         "repo": "kanban.nvim",
-        "rev": "5f52bccd8e849a54a84c07e753f11e783bb68d98",
+        "rev": "aadd90ebc298a07c87988e7b81cc11ad430d048f",
         "type": "github"
       },
       "original": {
