@@ -28,6 +28,7 @@ local parsers = {
   "nix",
   "yaml",
   "bash",
+  "typst",
 
   {
     name = "smarty",

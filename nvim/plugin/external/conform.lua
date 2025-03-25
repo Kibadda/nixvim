@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 conform.setup {
   formatters_by_ft = {
     lua = { "stylua" },
+    typst = { "typstfmt" },
   },
   notify_on_error = false,
 }
