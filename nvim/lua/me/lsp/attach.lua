@@ -30,11 +30,11 @@ local symbols = {
 }
 
 local should_confirm = false
-local trigger = vim.lsp.completion.trigger
+local get = vim.lsp.completion.get
 ---@diagnostic disable-next-line:duplicate-set-field
-function vim.lsp.completion.trigger()
+function vim.lsp.completion.get()
   should_confirm = false
-  trigger()
+  get()
 end
 
 local groups = {
@@ -215,7 +215,7 @@ autocmd("LspAttach", {
         mode = "i",
         lhs = "<C-Space>",
         rhs = function()
-          vim.lsp.completion.trigger()
+          vim.lsp.completion.get()
         end,
       },
       {
@@ -255,7 +255,7 @@ autocmd("LspAttach", {
             should_confirm = true
             keys = vim.api.nvim_replace_termcodes("<C-n>", true, false, true)
           elseif has_words_before() then
-            vim.lsp.completion.trigger()
+            vim.lsp.completion.get()
           else
             keys = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
           end
