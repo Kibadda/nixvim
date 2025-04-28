@@ -178,6 +178,13 @@ autocmd("LspAttach", {
         desc = "Toggle Inlay Hint",
       },
       {
+        method = methods.textDocument_documentColor,
+        extra = function()
+          require("mini.hipatterns").disable(bufnr)
+          vim.lsp.document_color.enable(true, bufnr)
+        end,
+      },
+      {
         method = methods.textDocument_formatting,
         extra = function()
           if not vim.b[bufnr].formatter then
