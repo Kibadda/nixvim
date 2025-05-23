@@ -4,6 +4,16 @@ end
 
 vim.g.loaded_plugin_session = 1
 
+if vim.env.USAGE == "work" then
+  vim.g.session = {
+    dir = vim.fn.stdpath "data" .. "/session/work",
+  }
+elseif vim.env.USAGE == "personal" then
+  vim.g.session = {
+    dir = vim.fn.stdpath "data" .. "/session/personal",
+  }
+end
+
 vim.keymap.set("n", "<Leader>Sn", "<Plug>(SessionNew)", { desc = "New" })
 vim.keymap.set("n", "<Leader>Sd", "<Plug>(SessionDelete)", { desc = "Delete" })
 vim.keymap.set("n", "<Leader>Sl", "<Plug>(SessionLoad)", { desc = "Load" })
